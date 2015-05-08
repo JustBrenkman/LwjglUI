@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="src">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/base/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/cache/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/collect/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/escape/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/io/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/math/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/src-super/com/google/common/primitives/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/base/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/cache/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/collect/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/collect/testing/google/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/collect/testing/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/io/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/math/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/net/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/primitives/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/testing/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-gwt/test-super/com/google/common/util/concurrent/super" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-testlib/src" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-testlib/test" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-tests/benchmark" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava-tests/test" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/guava-18.0.zip!/guava-18.0/guava/src" />
+    </SOURCES>
+  </library>
+</component>
