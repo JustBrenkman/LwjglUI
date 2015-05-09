@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2015.
+ */
+
 package org.lwjglui.core;
 
 /**
@@ -12,6 +16,9 @@ import org.lwjgl.opengl.*;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.glfw.Window;
 import org.lwjglui.math.Size;
+import org.lwjglui.math.Vector3f;
+import org.lwjglui.math.Vertex;
+import org.lwjglui.render.VertexArrayObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +39,8 @@ public class Core {
     private long window;
 
     public Window windowR;
+
+    public VertexArrayObject vertexArrayObject;
 
     public void run() {
         System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
@@ -112,17 +121,30 @@ public class Core {
         // Set the clear color
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
+        initRendering();
+
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
         while ( glfwWindowShouldClose(windowR.getWindowHandle()) == GL_FALSE ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-
+            render();
             glfwSwapBuffers(windowR.getWindowHandle()); // swap the color buffers
 
             // Poll for window event. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
         }
+    }
+
+    private void initRendering() {
+        vertexArrayObject = new VertexArrayObject();
+        vertexArrayObject.getVertexBufferObject().getVertexArray().addVertex(new Vertex(new Vector3f(0, 0, 0))).addVertex(new Vertex(new Vector3f(1, 0, 0))).addVertex(new Vertex(new Vector3f(1, 1, 0)));
+        vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2);
+        vertexArrayObject.compile();
+    }
+
+    public void render() {
+        vertexArrayObject.render();
     }
 
     public static void main(String[] args) {
