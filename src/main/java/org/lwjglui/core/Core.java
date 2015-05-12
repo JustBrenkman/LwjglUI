@@ -1,5 +1,30 @@
 /*
  * Copyright (c) 2015.
+ *  All rights reserved.
+ *
+ *  Redistribution and use in source and binary forms, with or without
+ *  modification, are permitted provided that the following conditions are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice, this
+ *     list of conditions and the following disclaimer.
+ *  2. Redistributions in binary form must reproduce the above copright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *     and/or other materials provided with the distribution.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ *  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are those
+ * of the authors and should not be interpreted as representing official policies,
+ * either expressed or implied, of the FreeBSD Project.
  */
 
 package org.lwjglui.core;
@@ -19,6 +44,8 @@ import org.lwjglui.math.Size;
 import org.lwjglui.math.Vector3f;
 import org.lwjglui.math.Vertex;
 import org.lwjglui.render.VertexArrayObject;
+import org.lwjglui.render.shader.ShaderManager;
+import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +70,7 @@ public class Core {
     public VertexArrayObject vertexArrayObject;
 
     public void run() {
-        System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
+//        System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
 
         try {
             init();
@@ -150,6 +177,10 @@ public class Core {
     public static void main(String[] args) {
         System.setProperty("java.library.path", "/home/ben/Documents/Programs/Terasology/LwjglUI/src/main/resources/libs/lwjgl/native");
         CoreRegistry.put(Core.class, new Core());
+        CoreRegistry.put(Logger.class, logger);
+        PathManager.initialize();
+        CoreRegistry.put(PathManager.class, PathManager.getInstance());
+        CoreRegistry.put(ShaderManager.class, new ShaderManager());
         CoreRegistry.get(Core.class).run();
     }
 }
