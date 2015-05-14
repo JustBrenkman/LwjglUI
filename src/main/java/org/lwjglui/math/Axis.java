@@ -27,25 +27,35 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render.shader;
+package org.lwjglui.math;
 
 /**
- * Created by ben on 11/05/15.
+ * Created by ben on 14/05/15.
  * <p>
  * JGUILibrary
  */
+public enum Axis {
+        X_AXIS,
+        Y_AXIS,
+        Z_AXIS,
+        W_AXIS;
 
-import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL32.*;
+        private static Vector3f x_Axis = new Vector3f(1, 0, 0);
+        private static Vector3f y_Axis = new Vector3f(0, 1, 0);
+        private static Vector3f z_Axis = new Vector3f(0, 0, 1);
 
-public enum ShaderType {
-
-    VERTEX(GL_VERTEX_SHADER),
-    FRAGMENT(GL_FRAGMENT_SHADER),
-    GEOMETRY(GL_GEOMETRY_SHADER),
-    COMPUTE(10000);
-
-    private int id;
-    ShaderType(int id) {this.id = id;}
-    public int getValue() {return id;}
+        public static Vector3f toVector(Axis axis) {
+            switch (axis) {
+                case X_AXIS:
+                    return x_Axis;
+                case Y_AXIS:
+                    return y_Axis;
+                case Z_AXIS:
+                    return z_Axis;
+                case W_AXIS:
+                    return null;
+                default:
+                    return null;
+            }
+        }
 }

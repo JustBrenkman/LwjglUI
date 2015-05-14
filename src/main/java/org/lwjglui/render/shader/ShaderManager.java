@@ -29,11 +29,17 @@
 
 package org.lwjglui.render.shader;
 
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+import static org.lwjgl.opengl.GL20.*;
 
 /**
  * Created by ben on 07/05/15.
@@ -43,21 +49,22 @@ import java.io.FileReader;
 public class ShaderManager {
 
     private Logger logger = LoggerFactory.getLogger(ShaderManager.class);
+    String pathToContaningFolder;
+    private ArrayList<WeakReference<Shader>> shaders = new ArrayList<>();
 
-    private void uploadShader(String filename) {
-
-    }
-
-    private void uploadShader() {
-
+    public ShaderManager() {
+        pathToContaningFolder = PathManager.getLocationPath() + "/src/main/resources/shaders/";
     }
 
     public void loadShader(Shader shader, String filename) {
-        logger.info("Loading shader from file: " + filename);
-
-        StringBuilder shaderSource = new StringBuilder();
-        BufferedReader shaderReader = null;
-        final String INCLUDE_DIRECTIVE = "#include";
+        logger.info("Loading shader from file: " + pathToContaningFolder + filename);
+        attachShaderProgram(shader, loadShaderSource(pathToContaningFolder + filename, ShaderType.VERTEX), ShaderType.VERTEX);
+        logger.debug("Successfully loaded and compiled vertex shader source");
+        attachShaderProgram(shader, loadShaderSource(pathToContaningFolder + filename, ShaderType.FRAGMENT), ShaderType.FRAGMENT);
+        logger.debug("Successfully loaded and compiled fragment shader source");
+        compileShader(shader);
+        logger.debug("Successfully validated and compiled shader program");
+        shaders.add(new WeakReference<>(shader));
     }
 
     private String loadShaderSource(String filename, ShaderType type) {
@@ -80,7 +87,7 @@ public class ShaderManager {
 
         try
         {
-            shaderReader = new BufferedReader(new FileReader("./res/shaders/" + filename + extension));
+            shaderReader = new BufferedReader(new FileReader(filename + extension));
             String line;
 
             while((line = shaderReader.readLine()) != null)
@@ -103,5 +110,47 @@ public class ShaderManager {
 
 
         return shaderSource.toString();
+    }
+
+    public void attachShaderProgram(Shader program, String shaderSource, ShaderType type) {
+        int shader = glCreateShader(type.getValue());
+
+        if (shader == 0) {
+            System.err.println("Shader creation failed: Could not find valid memory location when adding shader");
+            System.exit(1);
+        }
+
+        glShaderSource(shader, shaderSource);
+        glCompileShader(shader);
+
+        if (glGetShaderi(shader, GL_COMPILE_STATUS) == 0) {
+            System.err.println(glGetShaderInfoLog(shader, 1024));
+            System.exit(1);
+
+        }
+
+        glAttachShader(program.getProgramID(), shader);
+    }
+
+    public void compileShader(Shader shader) {
+        glLinkProgram(shader.getProgramID());
+
+        if(glGetProgrami(shader.getProgramID(), GL_LINK_STATUS) == 0)
+        {
+            System.err.println(glGetProgramInfoLog(shader.getProgramID(), 1024));
+            System.exit(1);
+        }
+
+        glValidateProgram(shader.getProgramID());
+
+        if(glGetProgrami(shader.getProgramID(), GL_VALIDATE_STATUS) == 0)
+        {
+            System.err.println(glGetProgramInfoLog(shader.getProgramID(), 1024));
+            System.exit(1);
+        }
+    }
+
+    public void destroyAllShaders() {
+
     }
 }

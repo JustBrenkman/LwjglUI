@@ -41,9 +41,12 @@ import org.lwjgl.opengl.*;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.glfw.Window;
 import org.lwjglui.math.Size;
+import org.lwjglui.math.Vector2f;
 import org.lwjglui.math.Vector3f;
 import org.lwjglui.math.Vertex;
+import org.lwjglui.render.Texture;
 import org.lwjglui.render.VertexArrayObject;
+import org.lwjglui.render.shader.Shader;
 import org.lwjglui.render.shader.ShaderManager;
 import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
@@ -52,6 +55,7 @@ import org.slf4j.LoggerFactory;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.glUseProgram;
 
 public class Core {
 
@@ -68,6 +72,8 @@ public class Core {
     public Window windowR;
 
     public VertexArrayObject vertexArrayObject;
+    Shader newShader;
+    Texture newTexture;
 
     public void run() {
 //        System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
@@ -90,43 +96,6 @@ public class Core {
         if (glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Cannot Initialize GLFW");
 
-//        glfwDefaultWindowHints();
-//        glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
-//        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-//
-//        int width = 300;
-//        int height = 300;
-//
-//        window = glfwCreateWindow(width, height, "Sup LWJGL 3", NULL, NULL);
-//        if (window == NULL)
-//            throw new  RuntimeException("Failed to create a GLFW window");
-//
-//        // Setup a key callback. It will be called every time a key is pressed, repeated or released.
-//        glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
-//            @Override
-//            public void invoke(long window, int key, int scancode, int action, int mods) {
-//                if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-//                    glfwSetWindowShouldClose(window, GL_TRUE); // We will detect this in our rendering loop
-//            }
-//        });
-//
-//        // Get the resolution of the primary monitor
-//        ByteBuffer vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-//        // Center our window
-//        glfwSetWindowPos(
-//                window,
-//                (GLFWvidmode.width(vidmode) - width) / 2,
-//                (GLFWvidmode.height(vidmode) - height) / 2
-//        );
-//
-//        // Make the OpenGL context current
-//        glfwMakeContextCurrent(window);
-//        // Enable v-sync
-//        glfwSwapInterval(1);
-//
-//        // Make the window visible
-//        glfwShowWindow(window);
-
         windowR = new Window(new Size(300, 300), "LWJGL Window Class test");
         windowR.createWindow();
     }
@@ -148,6 +117,9 @@ public class Core {
         // Set the clear color
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
+        glEnable(GL_TEXTURE_2D);
+        glEnable(GL_DEPTH_TEST);
+
         initRendering();
 
         // Run the rendering loop until the user has attempted to close
@@ -165,22 +137,38 @@ public class Core {
 
     private void initRendering() {
         vertexArrayObject = new VertexArrayObject();
-        vertexArrayObject.getVertexBufferObject().getVertexArray().addVertex(new Vertex(new Vector3f(0, 0, 0))).addVertex(new Vertex(new Vector3f(1, 0, 0))).addVertex(new Vertex(new Vector3f(1, 1, 0)));
+        vertexArrayObject.getVertexBufferObject().getVertexArray().addVertex(new Vertex(new Vector3f(0, 0, -1), new Vector2f(0, 0))).addVertex(new Vertex(new Vector3f(1, 0, -1), new Vector2f(1, 0))).addVertex(new Vertex(new Vector3f(1, 1, -1), new Vector2f(1, 1)));
         vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2);
         vertexArrayObject.compile();
+
+        newShader = new Shader("hello");
+        newTexture = new Texture("bricks.jpg");
+
+        newShader.addUniform("text");
     }
 
     public void render() {
+        glUseProgram(newShader.getProgramID());
+        glBindTexture(GL_TEXTURE_2D, newTexture.getTextureID());
+        newShader.unpdateUniformInt("text", 0);
         vertexArrayObject.render();
+
     }
 
     public static void main(String[] args) {
         System.setProperty("java.library.path", "/home/ben/Documents/Programs/Terasology/LwjglUI/src/main/resources/libs/lwjgl/native");
+        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
         CoreRegistry.put(Core.class, new Core());
         CoreRegistry.put(Logger.class, logger);
         PathManager.initialize();
         CoreRegistry.put(PathManager.class, PathManager.getInstance());
         CoreRegistry.put(ShaderManager.class, new ShaderManager());
         CoreRegistry.get(Core.class).run();
+        CoreRegistry.get(Core.class).cleanUp();
+    }
+
+    public void cleanUp() {
+        CoreRegistry.get(ShaderManager.class).destroyAllShaders();
+        vertexArrayObject.destroy();
     }
 }

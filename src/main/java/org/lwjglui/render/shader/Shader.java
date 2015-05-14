@@ -96,7 +96,7 @@ public class Shader {
         glUniform1i(uniforms.get(name), value);
     }
 
-    //    public void unpdateUniformMatrix4f(String name, float value) {}
+    //    public void updateUniformMatrix4f(String name, float value) {}
     public void unpdateUniformVector3f(String name, Vector3f value) {
         glUniform3f(uniforms.get(name), value.getX(), value.getY(), value.getZ());
     }
@@ -127,5 +127,9 @@ public class Shader {
 
     public void updateUniforms() {
         for (UpdateUniformListener up : updateUniformListeners) up.updateUniforms(this);
+    }
+
+    public void destroy() {
+        glDeleteProgram(programID);
     }
 }

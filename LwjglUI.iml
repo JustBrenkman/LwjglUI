@@ -20,5 +20,6 @@
     <orderEntry type="library" name="guava-18.0" level="project" />
     <orderEntry type="library" name="slf4j-simple-1.7.12" level="project" />
     <orderEntry type="library" name="commons-lang3-3.4" level="project" />
+    <orderEntry type="library" name="jinput" level="project" />
   </component>
 </module>
