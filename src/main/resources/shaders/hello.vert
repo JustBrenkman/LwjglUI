@@ -7,7 +7,10 @@ layout(location = 3) in vec3 tangent;
 
 out vec2 textureCoord0;
 
+uniform mat4 projectionMatrix;
+uniform mat4 viewMatrix;
+
 void main() {
-    gl_Position = vec4(position, 1.0);
+    gl_Position = viewMatrix * projectionMatrix * vec4(position, 1.0);
     textureCoord0 = textureCoord;
 }

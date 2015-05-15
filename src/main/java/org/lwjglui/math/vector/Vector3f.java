@@ -27,69 +27,65 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render;
-
-import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.math.Vertex;
-import org.slf4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+package org.lwjglui.math.vector;
 
 /**
  * Created by ben on 08/05/15.
  * <p>
  * JGUILibrary
  */
-public class VertexArrayObject {
+public class Vector3f {
 
-    private VertexBufferObject vertexBufferObject = new VertexBufferObject();
-    private int vaoID;
+    // x, y, z variables for the vector
+    private float x, y, z;
 
-    public VertexArrayObject() {
-
+    public Vector3f(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
-    public void compile() {
-
-        // creates vertex array ID
-        vaoID = glGenVertexArrays();
-        glBindVertexArray(vaoID);
-
-        // compiles vertex buffer object
-        vertexBufferObject.compile();
-
-        // unbinds array
-        glBindVertexArray(0);
-
-        CoreRegistry.get(Logger.class).info("Compiled Vertex Array Object");
+    public Vector3f(float[] xyzArray) {
+        if (xyzArray.length == 3) {
+            this.x = xyzArray[0];
+            this.y = xyzArray[1];
+            this.z = xyzArray[2];
+        } else {
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+        }
     }
 
-    @Deprecated
-    public void render() {
-        glBindVertexArray(vaoID);
-        vertexBufferObject.bindIBO();
-        glDrawElements(GL_TRIANGLES, vertexBufferObject.getIndex().size(), GL_UNSIGNED_INT, 0);
-        vertexBufferObject.unBind();
-        glBindVertexArray(0);
+    public float getX() {
+        return x;
     }
 
-    public VertexBufferObject getVertexBufferObject() {
-        return vertexBufferObject;
+    public void setX(float x) {
+        this.x = x;
     }
 
-    public void setVertexBufferObject(VertexBufferObject vertexBufferObject) {
-        this.vertexBufferObject = vertexBufferObject;
+    public float getY() {
+        return y;
     }
 
-    public void destroy() {
-        glDeleteVertexArrays(vaoID);
-        vertexBufferObject.destroy();
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float getZ() {
+        return z;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
+    public float length() {
+        return (float)Math.sqrt(x * x + y * y + z * z);
+    }
+
+    public float max() {
+        return Math.max(x, Math.max(y, z));
     }
 }

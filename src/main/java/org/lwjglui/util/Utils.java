@@ -72,19 +72,18 @@ public class Utils
     {
         FloatBuffer buffer = createFloatBuffer(vertices.length * Vertex.size);
 
-        for(int i = 0; i < vertices.length; i++)
-        {
-            buffer.put(vertices[i].getPosition().getX());
-            buffer.put(vertices[i].getPosition().getY());
-            buffer.put(vertices[i].getPosition().getZ());
-            buffer.put(vertices[i].getTextCoord().getX());
-            buffer.put(vertices[i].getTextCoord().getY());
-            buffer.put(vertices[i].getNormal().getX());
-            buffer.put(vertices[i].getNormal().getY());
-            buffer.put(vertices[i].getNormal().getZ());
-            buffer.put(vertices[i].getTangent().getX());
-            buffer.put(vertices[i].getTangent().getY());
-            buffer.put(vertices[i].getTangent().getZ());
+        for (Vertex vertice : vertices) {
+            buffer.put(vertice.getPosition().getX());
+            buffer.put(vertice.getPosition().getY());
+            buffer.put(vertice.getPosition().getZ());
+            buffer.put(vertice.getTextCoord().getX());
+            buffer.put(vertice.getTextCoord().getY());
+            buffer.put(vertice.getNormal().getX());
+            buffer.put(vertice.getNormal().getY());
+            buffer.put(vertice.getNormal().getZ());
+            buffer.put(vertice.getTangent().getX());
+            buffer.put(vertice.getTangent().getY());
+            buffer.put(vertice.getTangent().getZ());
         }
 
         buffer.flip();

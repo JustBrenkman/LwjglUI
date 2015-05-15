@@ -34,6 +34,8 @@ package org.lwjglui.math;
  * <p>
  * JGUILibrary
  */
+import org.lwjgl.util.vector.Vector3f;
+
 public enum Axis {
         X_AXIS,
         Y_AXIS,

@@ -29,11 +29,14 @@
 
 package org.lwjglui.render.shader;
 
+import org.lwjgl.BufferUtils;
+import org.lwjgl.util.vector.Matrix4f;
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.math.Vector2f;
-import org.lwjglui.math.Vector3f;
+import org.lwjglui.math.vector.Vector2f;
+import org.lwjglui.math.vector.Vector3f;
 import org.slf4j.Logger;
 
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -96,7 +99,13 @@ public class Shader {
         glUniform1i(uniforms.get(name), value);
     }
 
-    //    public void updateUniformMatrix4f(String name, float value) {}
+    public void updateUniformMatrix4f(String name, Matrix4f value) {
+        FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+        value.store(matrixBuffer);
+        matrixBuffer.flip();
+        glUniformMatrix4fv(uniforms.get(name), false, matrixBuffer);
+    }
+
     public void unpdateUniformVector3f(String name, Vector3f value) {
         glUniform3f(uniforms.get(name), value.getX(), value.getY(), value.getZ());
     }

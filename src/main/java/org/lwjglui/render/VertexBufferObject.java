@@ -31,6 +31,8 @@ package org.lwjglui.render;
 
 import org.lwjglui.math.Vertex;
 import org.lwjglui.util.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -54,11 +56,14 @@ public class VertexBufferObject {
     private VertexArray vertexArray;
     private ArrayList<Integer> indecies = new ArrayList<Integer>();
 
+    private static Logger logger = LoggerFactory.getLogger(VertexBufferObject.class);
+
     /**
      * Generates a new VertexArray list
      */
     public VertexBufferObject() {
         vertexArray = new VertexArray();
+        size = 0;
     }
 
     /**
@@ -75,12 +80,14 @@ public class VertexBufferObject {
 
     public VertexBufferObject addIndex(int i) {
         indecies.add(i);
+        size++;
         return this;
     }
 
     public void addIndecies(Integer... i) {
         for (Integer integer : i) {
             addIndex(integer);
+            size++;
         }
     }
 
@@ -133,6 +140,13 @@ public class VertexBufferObject {
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+        logger.info("-------------- Report -----------------");
+        logger.info("indecies size: " + indecies.size());
+        logger.info("Texture Coords: ");
+        for (Vertex v : vertexArray) {
+            logger.info("U: " + v.getTextCoord().getX() + ", V: " + v.getTextCoord().getY());
+        }
     }
 
     @Deprecated
@@ -143,5 +157,9 @@ public class VertexBufferObject {
     @Deprecated
     public void unBind() {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    public ArrayList getIndex() {
+        return indecies;
     }
 }

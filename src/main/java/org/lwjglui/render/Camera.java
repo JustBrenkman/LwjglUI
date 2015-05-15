@@ -31,7 +31,11 @@ package org.lwjglui.render;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.glfw.Window;
 import org.lwjglui.math.Axis;
+import org.lwjglui.scene.transform.Transform;
+import org.lwjglui.scene.transform.Vector3fMath;
 
 /**
  * Created by ben on 14/05/15.
@@ -47,7 +51,7 @@ public class Camera {
 
     private float fov = 60f;
 
-    private float aspectRatio = (float) Display.getWidth() / (float) Display.getHeight();
+    private float aspectRatio = (float) CoreRegistry.get(Window.class).getSize().getWidth() / (float) CoreRegistry.get(Window.class).getSize().getHeight();
 
     float near_plane = 0.1f;
 
@@ -122,7 +126,7 @@ public class Camera {
         projectionMatrix.m32 = -((2 * near_plane * far_plane) / frustum_length);
         projectionMatrix.m33 = 0;
 
-        orthoGraphicMatrix = Ortho(0, Display.getWidth(), Display.getHeight(), 0, 0, 100);
+        orthoGraphicMatrix = Ortho(0, CoreRegistry.get(Window.class).getSize().getWidth(), CoreRegistry.get(Window.class).getSize().getHeight(), 0, 0, 100);
     }
 
     public Matrix4f getProjectionMatrix() {
