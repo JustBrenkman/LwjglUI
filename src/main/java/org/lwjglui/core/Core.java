@@ -88,7 +88,7 @@ public class Core {
         if (glfwInit() != GL11.GL_TRUE)
             throw new IllegalStateException("Cannot Initialize GLFW");
 
-        windowR = new Window(new Size(600, 600), "LWJGL Window Class test");
+        windowR = new Window(new Size(300, 300), "LWJGL Window Class test");
         windowR.createWindow();
         CoreRegistry.put(Window.class, windowR);
     }

@@ -127,9 +127,13 @@ public class VertexBufferObject {
         glBufferData(GL_ARRAY_BUFFER, floatBuffer, GL_STATIC_DRAW);
 
         glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.size * 4, 0);
+        glEnableVertexAttribArray(0);
         glVertexAttribPointer(1, 2, GL_FLOAT, false, Vertex.size * 4, 12);
+        glEnableVertexAttribArray(1);
         glVertexAttribPointer(2, 3, GL_FLOAT, false, Vertex.size * 4, 20);
+//        glEnableVertexAttribArray(2);
         glVertexAttribPointer(3, 3, GL_FLOAT, false, Vertex.size * 4, 32);
+//        glEnableVertexAttribArray(3);
 
         glEnableVertexAttribArray(0);
 
