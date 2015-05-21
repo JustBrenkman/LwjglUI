@@ -27,69 +27,58 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render;
+package org.lwjglui.glfw;
 
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.math.Vertex;
+import org.lwjglui.gui.event.UIEventManager;
+import org.lwjglui.math.Size;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;
-import static org.lwjgl.opengl.GL30.glGenVertexArrays;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_TRUE;
 
 /**
- * Created by ben on 08/05/15.
+ * Created by ben on 15/05/15.
  * <p>
  * JGUILibrary
  */
-public class VertexArrayObject {
+public class WindowManager {
 
-    private VertexBufferObject vertexBufferObject = new VertexBufferObject();
-    private int vaoID;
+    private HashMap<String, Window> windows = new HashMap<>();
 
-    public VertexArrayObject() {
+    private Logger logger = LoggerFactory.getLogger(WindowManager.class);
+
+    public WindowManager() {
+    }
+
+    public Window createWindow(String name, Size size) {
+        Window window = new Window(size, name);
+        window.createWindow();
+        windows.put(name, window);
+        return window;
+    }
+
+    public void registerWindow(Window window, String name) {
+        if (windows.get(name) != null) {
+            windows.put(name, window);
+        }
+    }
+
+    public Window getWindow(String name) {
+        return windows.get(name);
+    }
+
+    public void update(int delta) {
 
     }
 
-    public void compile() {
-
-        // creates vertex array ID
-        vaoID = glGenVertexArrays();
-        glBindVertexArray(vaoID);
-
-        // compiles vertex buffer object
-        vertexBufferObject.compile();
-
-        // unbinds array
-        glBindVertexArray(0);
-
-        CoreRegistry.get(Logger.class).info("Compiled Vertex Array Object");
-    }
-
-    @Deprecated
-    public void render() {
-        glBindVertexArray(vaoID);
-        vertexBufferObject.bindIBO();
-        glDrawElements(GL_TRIANGLES, vertexBufferObject.getIndex().size(), GL_UNSIGNED_INT, 0);
-        vertexBufferObject.unBind();
-        glBindVertexArray(0);
-    }
-
-    public VertexBufferObject getVertexBufferObject() {
-        return vertexBufferObject;
-    }
-
-    public void setVertexBufferObject(VertexBufferObject vertexBufferObject) {
-        this.vertexBufferObject = vertexBufferObject;
-    }
-
-    public void destroy() {
-        glDeleteVertexArrays(vaoID);
-        vertexBufferObject.destroy();
+    public void processInput(long window, int key, int scancode, int action, int mods) {
+        if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+            glfwSetWindowShouldClose(window, GL_TRUE); // We will detect this in our rendering loop
+        CoreRegistry.get(UIEventManager.class).processMouseInputs();
+//        logger.info("processed input: " + key);
     }
 }

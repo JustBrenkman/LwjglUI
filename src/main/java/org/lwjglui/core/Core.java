@@ -40,6 +40,8 @@ import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.glfw.Window;
+import org.lwjglui.glfw.WindowManager;
+import org.lwjglui.gui.event.UIEventManager;
 import org.lwjglui.math.Size;
 import org.lwjglui.render.RenderingProcess;
 import org.lwjglui.render.shader.ShaderManager;
@@ -146,6 +148,8 @@ public class Core {
         PathManager.initialize();
         CoreRegistry.put(PathManager.class, PathManager.getInstance());
         CoreRegistry.put(ShaderManager.class, new ShaderManager());
+        CoreRegistry.put(WindowManager.class, new WindowManager());
+        CoreRegistry.put(UIEventManager.class, new UIEventManager());
         CoreRegistry.get(Core.class).run();
         CoreRegistry.get(Core.class).cleanUp();
     }

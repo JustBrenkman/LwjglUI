@@ -27,16 +27,39 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.event;
+package org.lwjglui.gui.renderable;
+
+import org.lwjglui.render.shader.Shader;
+import org.lwjglui.render.shader.UpdateUniformListener;
 
 /**
- * Created by ben on 06/05/15.
- * Handles UI events across entire system
+ * Created by ben on 20/05/15.
+ * <p>
  * JGUILibrary
  */
-public class UIEventManager {
+public class ButtonRenderer extends ElementRenderer implements UpdateUniformListener {
 
-    public void processMouseInputs() {
+    public ButtonRenderer() {
+        super();
+    }
+
+    @Override
+    public void initialize() {
+        shader = new Shader("basic");
+        shader.addUniform("projectionMatrix");
+        shader.addUniform("viewMatrix");
+        shader.addUniform("text");
+        shader.addUniform("colorScheme");
+
+    }
+
+    @Override
+    public void render() {
+
+    }
+
+    @Override
+    public void updateUniforms(Shader shader0) {
 
     }
 }

@@ -32,6 +32,7 @@ package org.lwjglui.render;
 import org.lwjglui.math.vector.Vector2f;
 import org.lwjglui.math.vector.Vector3f;
 import org.lwjglui.math.Vertex;
+import org.lwjglui.render.mesh.VertexArrayObject;
 import org.lwjglui.render.shader.Shader;
 
 import static org.lwjgl.opengl.GL11.*;

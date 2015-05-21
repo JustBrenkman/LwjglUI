@@ -27,16 +27,58 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.event;
+package org.lwjglui.render;
+
+import java.awt.*;
 
 /**
- * Created by ben on 06/05/15.
- * Handles UI events across entire system
+ * Created by ben on 20/05/15.
+ * <p>
  * JGUILibrary
  */
-public class UIEventManager {
+public class Material {
 
-    public void processMouseInputs() {
+    public Texture texture;
 
+    public Color color;
+
+    public boolean isTextured;
+
+    public Material(Color color) {
+        this.color = color;
+        this.isTextured = false;
+    }
+
+    public Material(Texture texture) {
+        this.texture = texture;
+        this.color = Color.WHITE;
+        this.isTextured = true;
+    }
+
+    public Material(Texture texture, Color color) {
+        this.texture = texture;
+        this.color = color;
+        this.isTextured = true;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+        this.isTextured = true;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public boolean isTextured() {
+        return isTextured;
     }
 }

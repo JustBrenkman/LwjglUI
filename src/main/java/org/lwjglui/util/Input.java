@@ -29,6 +29,9 @@
 
 package org.lwjglui.util;
 
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
+
 /**
  * Created by ben on 14/05/15.
  * <p>

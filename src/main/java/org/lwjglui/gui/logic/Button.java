@@ -27,16 +27,14 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.event;
+package org.lwjglui.gui.logic;
+
 
 /**
- * Created by ben on 06/05/15.
- * Handles UI events across entire system
+ * Created by ben on 20/05/15.
+ * <p>
  * JGUILibrary
  */
-public class UIEventManager {
+public class Button implements IUIElemntLogic {
 
-    public void processMouseInputs() {
-
-    }
 }

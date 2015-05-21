@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL30.*;
 
 /**
  * Created by ben on 14/05/15.
@@ -99,6 +100,8 @@ public class Texture {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
             logger.info("Loaded texture " + filename);
+
+            glGenerateMipmap(GL_TEXTURE_2D);
 
         } catch (IOException e) {
             e.printStackTrace();

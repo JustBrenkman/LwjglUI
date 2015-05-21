@@ -27,16 +27,27 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.event;
+package org.lwjglui.gui.renderable;
+
+import com.google.common.collect.Maps;
+import java.util.Map;
 
 /**
- * Created by ben on 06/05/15.
- * Handles UI events across entire system
+ * Created by ben on 20/05/15.
+ * <p>
  * JGUILibrary
  */
-public class UIEventManager {
+public class ElementRenderers {
+    /**
+     * Resister Map for holding the objects
+     */
+    public static Map<Class<?>, ElementRenderer> elementRenderers = Maps.newConcurrentMap();
 
-    public void processMouseInputs() {
+    public static void setElementRenderer(Class<?> type, ElementRenderer elementRenderer) {
+        elementRenderers.put(type, elementRenderer);
+    }
 
+    public static ElementRenderer getElementRenderer(Class type) {
+        return elementRenderers.get(type);
     }
 }

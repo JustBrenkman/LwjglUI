@@ -27,7 +27,7 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render;
+package org.lwjglui.render.mesh;
 
 import org.lwjglui.math.Vertex;
 import org.lwjglui.util.Utils;
@@ -145,12 +145,12 @@ public class VertexBufferObject {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-        logger.info("-------------- Report -----------------");
-        logger.info("indecies size: " + indecies.size());
-        logger.info("Texture Coords: ");
-        for (Vertex v : vertexArray) {
-            logger.info("U: " + v.getTextCoord().getX() + ", V: " + v.getTextCoord().getY());
-        }
+//        logger.info("-------------- Report -----------------");
+//        logger.info("indecies size: " + indecies.size());
+//        logger.info("Texture Coords: ");
+//        for (Vertex v : vertexArray) {
+//            logger.info("U: " + v.getTextCoord().getX() + ", V: " + v.getTextCoord().getY());
+//        }
     }
 
     @Deprecated

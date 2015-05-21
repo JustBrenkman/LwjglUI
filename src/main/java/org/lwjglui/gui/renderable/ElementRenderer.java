@@ -27,71 +27,40 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render;
+package org.lwjglui.gui.renderable;
 
-import org.lwjglui.math.Vertex;
-
-import java.util.ArrayList;
-import java.util.Iterator;
+import org.lwjglui.render.Material;
+import org.lwjglui.render.mesh.VertexArrayObject;
+import org.lwjglui.render.shader.Shader;
 
 /**
- * Created by ben on 08/05/15.
+ * Created by ben on 20/05/15.
  * <p>
  * JGUILibrary
  */
-public class VertexArray extends ArrayList<Vertex> {
+public abstract class ElementRenderer implements IUIRenderable {
+    public Shader shader;
 
-    public VertexArray(int initialCapacity) {
-        super(initialCapacity);
-    }
+    public Material material;
 
-    public VertexArray() {
-        super();
-    }
+    public VertexArrayObject vertexArrayObject;
 
-//    public VertexArray(Collection<? extends Vertex> c) {
-//        super(c);
-//    }
-
-    /**
-     * Wrapper method for adding a vertex
-     * @param vertex
-     */
-    public VertexArray addVertex(Vertex vertex) {
-        this.add(vertex);
-        return this;
+    public ElementRenderer() {
+        // Enable the coorect shaders and textures needed
     }
 
     /**
-     * Wrapper method for adding a vertex
-     * @param i - position
-     * @param vertex - vertex
+     * Initialize shaders and materials if needed
      */
-    public void addVertex(int i, Vertex vertex) {
-        this.add(i, vertex);
+    public abstract void initialize();
+
+    public void preRender() {
+
     }
 
-    /**
-     * Wrapper method for removing vertex
-     * @param i - index of vertex to remove
-     */
-    public void removeVertex(int i) {
-        this.remove(i);
-    }
+    public abstract void render();
 
-    /**
-     * Wrapper method for removing vertex
-     * @param vertex - vertex to be removed
-     */
-    public void removeVertex(Vertex vertex) {
-        this.remove(vertex);
-    }
+    public void postRender() {
 
-    /**
-     * Wrapper method for returning vertex iterator
-     * @return
-     */
-    public Iterator<Vertex> getVertexIterator() {
-        return this.iterator();
     }
 }

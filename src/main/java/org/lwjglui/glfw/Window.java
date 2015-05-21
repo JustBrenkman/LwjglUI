@@ -32,6 +32,7 @@ package org.lwjglui.glfw;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWvidmode;
+import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.math.Size;
 
 import java.nio.ByteBuffer;
@@ -89,8 +90,7 @@ public class Window {
         glfwSetKeyCallback(getWindowHandle(), keyCallback = new GLFWKeyCallback() {
             @Override
             public void invoke(long window, int key, int scancode, int action, int mods) {
-                if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-                    glfwSetWindowShouldClose(window, GL_TRUE); // We will detect this in our rendering loop
+                CoreRegistry.get(WindowManager.class).processInput(window, key, scancode, action, mods);
             }
         });
         // Get the resolution of the primary monitor
