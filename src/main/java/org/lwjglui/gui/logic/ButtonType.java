@@ -27,15 +27,11 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render.shader;
-
-import org.lwjglui.gui.logic.UIElement;
+package org.lwjglui.gui.logic;
 
 /**
- * Created by ben on 11/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 21/05/15.
  */
-public interface UpdateUniformListener {
-    public void updateUniforms(Shader shader, UIElement element);
+public enum ButtonType {
+
 }

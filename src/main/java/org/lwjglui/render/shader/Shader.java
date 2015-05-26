@@ -91,11 +91,11 @@ public class Shader {
         this.programID = programID;
     }
 
-    public void unpdateUniformFloat(String name, float value) {
+    public void updateUniformFloat(String name, float value) {
         glUniform1f(uniforms.get(name), value);
     }
 
-    public void unpdateUniformInt(String name, int value) {
+    public void updateUniformInt(String name, int value) {
         glUniform1i(uniforms.get(name), value);
     }
 
@@ -106,11 +106,11 @@ public class Shader {
         glUniformMatrix4fv(uniforms.get(name), false, matrixBuffer);
     }
 
-    public void unpdateUniformVector3f(String name, Vector3f value) {
+    public void updateUniformVector3f(String name, Vector3f value) {
         glUniform3f(uniforms.get(name), value.getX(), value.getY(), value.getZ());
     }
 
-    public void unpdateUniformVector2f(String name, Vector2f value) {
+    public void updateUniformVector2f(String name, Vector2f value) {
         glUniform2f(uniforms.get(name), value.getX(), value.getY());
     }
 
@@ -135,7 +135,7 @@ public class Shader {
     }
 
     public void updateUniforms() {
-        for (UpdateUniformListener up : updateUniformListeners) up.updateUniforms(this);
+//        for (UpdateUniformListener up : updateUniformListeners) up.updateUniforms(this);
     }
 
     public void destroy() {

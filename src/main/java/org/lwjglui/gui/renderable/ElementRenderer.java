@@ -52,7 +52,7 @@ public abstract class ElementRenderer implements IUIRenderable {
     /**
      * Initialize shaders and materials if needed
      */
-    public abstract void initialize();
+    public abstract ElementRenderer initialize();
 
     public void preRender() {
 

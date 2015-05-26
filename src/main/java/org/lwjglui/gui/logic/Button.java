@@ -30,11 +30,19 @@
 package org.lwjglui.gui.logic;
 
 
+import org.lwjglui.gui.renderable.ElementMesh;
+
+import java.util.HashMap;
+
 /**
  * Created by ben on 20/05/15.
  * <p>
  * JGUILibrary
  */
-public class Button implements IUIElemntLogic {
+public class Button extends UIElement implements IUIElemntLogic {
 
+    public Button() {
+        getElementMesh().addBoxToMesh(0, 0, 100, 100);
+        getElementMesh().compile();
+    }
 }

@@ -29,8 +29,15 @@
 
 package org.lwjglui.gui.renderable;
 
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.logic.UIElement;
+import org.lwjglui.math.vector.Vector3f;
+import org.lwjglui.render.Camera;
 import org.lwjglui.render.shader.Shader;
 import org.lwjglui.render.shader.UpdateUniformListener;
+import org.lwjglui.render.mesh.MeshBuilder;
+
+import static org.lwjgl.opengl.GL20.*;
 
 /**
  * Created by ben on 20/05/15.
@@ -44,22 +51,30 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
     }
 
     @Override
-    public void initialize() {
+    public ButtonRenderer initialize() {
         shader = new Shader("basic");
         shader.addUniform("projectionMatrix");
         shader.addUniform("viewMatrix");
-        shader.addUniform("text");
+//        shader.addUniform("text");
         shader.addUniform("colorScheme");
-
+        vertexArrayObject = MeshBuilder.createBox(1, 1);
+        return this;
     }
 
     @Override
     public void render() {
+        glUseProgram(shader.getProgramID());
+        shader.updateUniformVector3f("colorScheme", new Vector3f(0, 0, 1));
+        shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getProjectionMatrix());
+        shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
 
+        vertexArrayObject.render();
+        glUseProgram(0);
+//        CoreRegistry.get(Logger.class).info("Button Renderer rendering button");
     }
 
     @Override
-    public void updateUniforms(Shader shader0) {
+    public void updateUniforms(Shader shader0, UIElement element) {
 
     }
 }

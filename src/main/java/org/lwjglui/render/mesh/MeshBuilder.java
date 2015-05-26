@@ -27,15 +27,28 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.render.shader;
+package org.lwjglui.render.mesh;
 
-import org.lwjglui.gui.logic.UIElement;
+import org.lwjglui.math.Vertex;
+import org.lwjglui.math.vector.Vector2f;
+import org.lwjglui.math.vector.Vector3f;
+import org.lwjglui.render.mesh.VertexArrayObject;
+import org.lwjglui.render.mesh.VertexBufferObject;
 
 /**
- * Created by ben on 11/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 21/05/15.
  */
-public interface UpdateUniformListener {
-    public void updateUniforms(Shader shader, UIElement element);
+public class MeshBuilder {
+
+    public static VertexArrayObject createBox(float width, float height) {
+        VertexArrayObject vao = new VertexArrayObject();
+        vao.getVertexBufferObject().getVertexArray()
+                .addVertex(new Vertex(new Vector3f(0, 0, -1), new Vector2f(0, 0)))
+                .addVertex(new Vertex(new Vector3f(width, 0, -1), new Vector2f(1, 0)))
+                .addVertex(new Vertex(new Vector3f(width, height, -1), new Vector2f(1, 1)))
+                .addVertex(new Vertex(new Vector3f(0, height, -1), new Vector2f(0, 1)));
+        vao.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2).addIndex(0).addIndex(2).addIndex(3);
+        vao.compile();
+        return vao;
+    }
 }

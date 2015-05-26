@@ -29,15 +29,14 @@
 
 package org.lwjglui.render;
 
-import org.lwjglui.math.vector.Vector2f;
-import org.lwjglui.math.vector.Vector3f;
-import org.lwjglui.math.Vertex;
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.logic.Button;
+import org.lwjglui.gui.logic.UIElement;
+import org.lwjglui.gui.renderable.ButtonRenderer;
+import org.lwjglui.gui.renderable.ElementRenderers;
 import org.lwjglui.render.mesh.VertexArrayObject;
 import org.lwjglui.render.shader.Shader;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13.*;
-import static org.lwjgl.opengl.GL20.*;
+import org.lwjglui.render.mesh.MeshBuilder;
 
 /**
  * Created by ben on 15/05/15.
@@ -51,23 +50,29 @@ public class RenderingProcess {
     Texture newTexture;
     Camera camera;
 
+    Button button;
+
     public void initialize() {
 
         camera = new Camera();
+
+        CoreRegistry.put(Camera.class, camera);
+
         camera.init();
         camera.getTransform().updateTransformation();
-//        camera.move(Axis.toVector(Axis.Z_AXIS), -10);
+//        camera.move(Axis.toVector(Axis.Z_AXIS), 1);
         camera.getTransform().updateCameraTransfomationWithQuaternion();
 
-        vertexArrayObject = new VertexArrayObject();
-        vertexArrayObject.getVertexBufferObject().getVertexArray()
-                .addVertex(new Vertex(new Vector3f(0, 0, -1), new Vector2f(0, 0)))
-                .addVertex(new Vertex(new Vector3f(1, 0, -1), new Vector2f(1, 0)))
-                .addVertex(new Vertex(new Vector3f(1, 1, -1), new Vector2f(1, 1)))
-                .addVertex(new Vertex(new Vector3f(0, 1, -1), new Vector2f(0, 1)));
+        vertexArrayObject = MeshBuilder.createBox(1, 1);
+//        vertexArrayObject = new VertexArrayObject();
+//        vertexArrayObject.getVertexBufferObject().getVertexArray()
+//                .addVertex(new Vertex(new Vector3f(0, 0, -1), new Vector2f(0, 0)))
+//                .addVertex(new Vertex(new Vector3f(1, 0, -1), new Vector2f(1, 0)))
+//                .addVertex(new Vertex(new Vector3f(1, 1, -1), new Vector2f(1, 1)))
+//                .addVertex(new Vertex(new Vector3f(0, 1, -1), new Vector2f(0, 1)));
 //        vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(2).addIndex(3).addIndex(0).addIndex(1).addIndex(2);
-        vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2).addIndex(0).addIndex(2).addIndex(3);
-        vertexArrayObject.compile();
+//        vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2).addIndex(0).addIndex(2).addIndex(3);
+//        vertexArrayObject.compile();
 
         newShader = new Shader("hello");
         newShader.addUniform("projectionMatrix");
@@ -75,21 +80,32 @@ public class RenderingProcess {
         newTexture = new Texture("bricks.png");
 
         newShader.addUniform("text");
+
+        button = new Button();
+        ElementRenderers.setElementRenderer(Button.class, new ButtonRenderer().initialize());
     }
 
     public void render() {
         processInput();
-        glUseProgram(newShader.getProgramID());
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, newTexture.getTextureID());
-        newShader.unpdateUniformInt("text", 0);
-        newShader.updateUniformMatrix4f("projectionMatrix", camera.getProjectionMatrix());
-        newShader.updateUniformMatrix4f("viewMatrix", camera.getTransform().getTransformationMatrix());
-        vertexArrayObject.render();
+//        glUseProgram(newShader.getProgramID());
+//        glActiveTexture(GL_TEXTURE0);
+//        glBindTexture(GL_TEXTURE_2D, newTexture.getTextureID());
+//        newShader.updateUniformInt("text", 0);
+//        newShader.updateUniformMatrix4f("projectionMatrix", camera.getProjectionMatrix());
+//        newShader.updateUniformMatrix4f("viewMatrix", camera.getTransform().getTransformationMatrix());
+//        vertexArrayObject.render();
+//        glBindTexture(GL_TEXTURE_2D, 0);
+//        glUseProgram(0);
+
+        renderElement(button);
     }
 
     public void processInput() {
 
+    }
+
+    public void renderElement(UIElement element) {
+        ElementRenderers.getElementRenderer(element.getClass()).render();
     }
 
     public void destory() {

@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jinput">
+  <library name="lwjgl_util">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/resources/libs/lwjgl_util.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
