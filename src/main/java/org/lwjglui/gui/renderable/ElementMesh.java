@@ -41,6 +41,10 @@ public class ElementMesh {
 
     private VertexArrayObject vertexArrayObject;
 
+    public ElementMesh() {
+        vertexArrayObject = new VertexArrayObject();
+    }
+
     public void addVertex() {
         addVertex(new Vertex(new Vector3f(0, 0, 0)));
     }
@@ -65,10 +69,10 @@ public class ElementMesh {
 
         int i = getVertexArrayObject().getVertexBufferObject().getVertexArray().size();
 
-        addVertex(new Vertex(new Vector3f(x, y, 0)));
-        addVertex(new Vertex(new Vector3f(x, height + y, 0)));
-        addVertex(new Vertex(new Vector3f(width + x, height + y, 0)));
-        addVertex(new Vertex(new Vector3f(x, height + y, 0)));
+        addVertex(new Vertex(new Vector3f(x, y, -1)));
+        addVertex(new Vertex(new Vector3f(width + x, y, -1)));
+        addVertex(new Vertex(new Vector3f(width + x, height + y, -1)));
+        addVertex(new Vertex(new Vector3f(x, height + y, -1)));
 
         getVertexArrayObject().getVertexBufferObject().addIndex(i);
         getVertexArrayObject().getVertexBufferObject().addIndex(i + 1);
@@ -82,10 +86,10 @@ public class ElementMesh {
         int i = getVertexArrayObject().getVertexBufferObject().getVertexArray().size();
 
         // TODO figure out the proper texture coordinates
-        addVertex(new Vertex(new Vector3f(x, y, 0), new Vector2f(uv0, uv1)));
-        addVertex(new Vertex(new Vector3f(x, height + y, 0), new Vector2f(uv1, uv2)));
-        addVertex(new Vertex(new Vector3f(width + x, height + y, 0), new Vector2f(uv2, uv3)));
-        addVertex(new Vertex(new Vector3f(x, height + y, 0), new Vector2f(uv3, uv1)));
+        addVertex(new Vertex(new Vector3f(x, y, -1), new Vector2f(uv0, uv1)));
+        addVertex(new Vertex(new Vector3f(width + x, y, -1), new Vector2f(uv1, uv2)));
+        addVertex(new Vertex(new Vector3f(width + x, height + y, -1), new Vector2f(uv2, uv3)));
+        addVertex(new Vertex(new Vector3f(x, height + y, -1), new Vector2f(uv3, uv1)));
 
         getVertexArrayObject().getVertexBufferObject().addIndex(i);
         getVertexArrayObject().getVertexBufferObject().addIndex(i + 1);
@@ -98,9 +102,9 @@ public class ElementMesh {
     public void addTriangleToMesh(float p1x, float p1y, float p2x, float p2y, float p3x, float p3y) {
         int i = getVertexArrayObject().getVertexBufferObject().getVertexArray().size();
 
-        addVertex(new Vertex(new Vector3f(p1x, p1y, 0)));
-        addVertex(new Vertex(new Vector3f(p2x, p2y, 0)));
-        addVertex(new Vertex(new Vector3f(p3x, p3y, 0)));
+        addVertex(new Vertex(new Vector3f(p1x, p1y, -1)));
+        addVertex(new Vertex(new Vector3f(p2x, p2y, -1)));
+        addVertex(new Vertex(new Vector3f(p3x, p3y, -1)));
 
         getVertexArrayObject().getVertexBufferObject().addIndex(i);
         getVertexArrayObject().getVertexBufferObject().addIndex(i + 1);

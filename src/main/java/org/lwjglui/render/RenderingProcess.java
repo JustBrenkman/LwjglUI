@@ -105,7 +105,7 @@ public class RenderingProcess {
     }
 
     public void renderElement(UIElement element) {
-        ElementRenderers.getElementRenderer(element.getClass()).render();
+        ElementRenderers.getElementRenderer(element.getClass()).render(element);
     }
 
     public void destory() {

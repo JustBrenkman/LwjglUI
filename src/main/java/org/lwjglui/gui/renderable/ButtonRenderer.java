@@ -57,20 +57,19 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
         shader.addUniform("viewMatrix");
 //        shader.addUniform("text");
         shader.addUniform("colorScheme");
-        vertexArrayObject = MeshBuilder.createBox(1, 1);
         return this;
     }
 
     @Override
-    public void render() {
+    public void render(UIElement ui) {
         glUseProgram(shader.getProgramID());
         shader.updateUniformVector3f("colorScheme", new Vector3f(0, 0, 1));
         shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getProjectionMatrix());
         shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
 
-        vertexArrayObject.render();
+        ui.getElementMesh().getVertexArrayObject().render();
+
         glUseProgram(0);
-//        CoreRegistry.get(Logger.class).info("Button Renderer rendering button");
     }
 
     @Override

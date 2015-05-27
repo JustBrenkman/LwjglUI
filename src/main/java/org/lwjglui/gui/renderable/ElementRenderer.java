@@ -29,6 +29,7 @@
 
 package org.lwjglui.gui.renderable;
 
+import org.lwjglui.gui.logic.UIElement;
 import org.lwjglui.render.Material;
 import org.lwjglui.render.mesh.VertexArrayObject;
 import org.lwjglui.render.shader.Shader;
@@ -43,8 +44,6 @@ public abstract class ElementRenderer implements IUIRenderable {
 
     public Material material;
 
-    public VertexArrayObject vertexArrayObject;
-
     public ElementRenderer() {
         // Enable the coorect shaders and textures needed
     }
@@ -58,7 +57,7 @@ public abstract class ElementRenderer implements IUIRenderable {
 
     }
 
-    public abstract void render();
+    public abstract void render(UIElement uiElement);
 
     public void postRender() {
 

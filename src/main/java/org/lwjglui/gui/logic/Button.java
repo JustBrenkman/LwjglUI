@@ -42,7 +42,8 @@ import java.util.HashMap;
 public class Button extends UIElement implements IUIElemntLogic {
 
     public Button() {
-        getElementMesh().addBoxToMesh(0, 0, 100, 100);
+        getElementMesh().addBoxToMesh(0, 0, 0.5f, 0.5f, 0, 0, 1, 1);
+        getElementMesh().addTriangleToMesh(-1, -1, 0, 0, -1, 0);
         getElementMesh().compile();
     }
 }
