@@ -39,8 +39,10 @@ import org.lwjgl.Sys;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.glfw.Mouse;
 import org.lwjglui.glfw.Window;
 import org.lwjglui.glfw.WindowManager;
+import org.lwjglui.gui.GUIManager;
 import org.lwjglui.gui.event.UIEventManager;
 import org.lwjglui.math.Size;
 import org.lwjglui.render.RenderingProcess;
@@ -150,6 +152,8 @@ public class Core {
         CoreRegistry.put(ShaderManager.class, new ShaderManager());
         CoreRegistry.put(WindowManager.class, new WindowManager());
         CoreRegistry.put(UIEventManager.class, new UIEventManager());
+        CoreRegistry.put(GUIManager.class, new GUIManager());
+        Mouse.create();
         CoreRegistry.get(Core.class).run();
         CoreRegistry.get(Core.class).cleanUp();
     }

@@ -30,9 +30,9 @@
 package org.lwjglui.render;
 
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.gui.logic.Button;
+import org.lwjglui.gui.elements.logic.Button;
 import org.lwjglui.gui.logic.UIElement;
-import org.lwjglui.gui.renderable.ButtonRenderer;
+import org.lwjglui.gui.elements.renderers.ButtonRenderer;
 import org.lwjglui.gui.renderable.ElementRenderers;
 import org.lwjglui.render.mesh.VertexArrayObject;
 import org.lwjglui.render.shader.Shader;

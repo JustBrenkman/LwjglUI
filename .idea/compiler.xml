@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/src/main/java/org/jbox2d/common/Timer.java" />
+      <file url="file://$PROJECT_DIR$/src/main/java/org/jbox2d/gwtemul/org/jbox2d/common/PlatformMathUtils.java" />
+    </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>
       <entry name="!?*.java" />

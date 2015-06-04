@@ -27,53 +27,73 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.renderable;
+package org.lwjglui.gui.elements.logic;
 
-import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.event.listeners.MouseListener;
+import org.lwjglui.gui.logic.IUIElemntLogic;
 import org.lwjglui.gui.logic.UIElement;
-import org.lwjglui.math.vector.Vector3f;
-import org.lwjglui.render.Camera;
-import org.lwjglui.render.shader.Shader;
-import org.lwjglui.render.shader.UpdateUniformListener;
-import org.lwjglui.render.mesh.MeshBuilder;
-
-import static org.lwjgl.opengl.GL20.*;
+import org.lwjglui.math.vector.Vector2f;
 
 /**
  * Created by ben on 20/05/15.
  * <p>
  * JGUILibrary
  */
-public class ButtonRenderer extends ElementRenderer implements UpdateUniformListener {
+public class Button extends UIElement implements IUIElemntLogic {
 
-    public ButtonRenderer() {
+    public Button() {
         super();
     }
 
     @Override
-    public ButtonRenderer initialize() {
-        shader = new Shader("basic");
-        shader.addUniform("projectionMatrix");
-        shader.addUniform("viewMatrix");
-//        shader.addUniform("text");
-        shader.addUniform("colorScheme");
-        return this;
+    public void initializeMesh() {
+        getElementMesh().addBoxToMesh(0, 0, 0.5f, 0.5f, 0, 0, 1, 1);
+        getElementMesh().addTriangleToMesh(-1, -1, 0, 0, -1, 0);
+        getElementMesh().compile();
     }
 
     @Override
-    public void render(UIElement ui) {
-        glUseProgram(shader.getProgramID());
-        shader.updateUniformVector3f("colorScheme", new Vector3f(0, 0, 1));
-        shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getProjectionMatrix());
-        shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
-
-        ui.getElementMesh().getVertexArrayObject().render();
-
-        glUseProgram(0);
+    public void initializePhysics() {
+        addToPhysics();
     }
 
     @Override
-    public void updateUniforms(Shader shader0, UIElement element) {
+    public void initializeListeners() {
+        addMouseListener(new MouseListener() {
+            @Override
+            public void onMouseMove(Vector2f vector2i) {
 
+            }
+
+            @Override
+            public void onMouseButtonClick(int button) {
+
+            }
+
+            @Override
+            public void onMouseDoubleClick(int button) {
+
+            }
+
+            @Override
+            public void onMouseTripleClick(int button) {
+
+            }
+
+            @Override
+            public void onMouseHover() {
+
+            }
+
+            @Override
+            public void onMouseEnter() {
+
+            }
+
+            @Override
+            public void onMouseLeave() {
+
+            }
+        });
     }
 }

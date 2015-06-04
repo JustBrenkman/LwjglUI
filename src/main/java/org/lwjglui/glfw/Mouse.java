@@ -27,52 +27,37 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui;
+package org.lwjglui.glfw;
 
-import org.jbox2d.callbacks.QueryCallback;
-import org.jbox2d.collision.AABB;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
-import org.jbox2d.dynamics.World;
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.glfw.Mouse;
-import org.lwjglui.gui.logic.UIElement;
+import org.lwjglui.scene.transform.Transform;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 /**
- * Created by ben on 06/05/15.
- * <p>
- * GUIManager
+ * Created by ben on 04/06/15.
  */
-public class GUIManager {
+public class Mouse {
+    private static final Mouse mouse = new Mouse();
 
-    public World world;
-    public Vec2 gravity;
-    public AABB aabb;
+    private Transform transform;
 
-    public Vec2 lowerBound = new Vec2(0, 0);
-    public Vec2 upperBound = new Vec2(0, 0);
-
-    public GUIManager() {
-        gravity = new Vec2(0, -9.81f);
-        world = new World(gravity);
-        CoreRegistry.put(World.class, world);
-
-        aabb = new AABB(lowerBound, upperBound);
+    public Transform getTransform() {
+        return transform;
     }
 
-    public void stepMouseInteraction() {
+    public static Transform getMouseTransform() {
+        return mouse.getTransform();
+    }
 
-        lowerBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
-        upperBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
-
-        aabb.set(new AABB(lowerBound, upperBound));
-
-        world.queryAABB(new QueryCallback() {
+    public static void create() {
+        glfwSetCursorPosCallback(CoreRegistry.get(Window.class).getWindowHandle(), new GLFWCursorPosCallback() {
             @Override
-            public boolean reportFixture(Fixture fixture) {
-                UIElement.getFromPhysicsWorld(fixture.getBody());
-                return false;
+            public void invoke(long window, double x, double y) {
+                getMouseTransform().getTranslation().setX((float) x);
+                getMouseTransform().getTranslation().setY((float) y);
             }
-        }, aabb);
+        });
     }
 }

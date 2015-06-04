@@ -27,52 +27,57 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui;
+package org.lwjglui.gui.elements.renderers;
 
-import org.jbox2d.callbacks.QueryCallback;
-import org.jbox2d.collision.AABB;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
-import org.jbox2d.dynamics.World;
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.glfw.Mouse;
 import org.lwjglui.gui.logic.UIElement;
+import org.lwjglui.gui.renderable.ElementRenderer;
+import org.lwjglui.render.Camera;
+import org.lwjglui.render.Material;
+import org.lwjglui.render.shader.Shader;
+import org.lwjglui.render.shader.UpdateUniformListener;
+
+import java.awt.*;
+
+import static org.lwjgl.opengl.GL20.*;
 
 /**
- * Created by ben on 06/05/15.
+ * Created by ben on 20/05/15.
  * <p>
- * GUIManager
+ * JGUILibrary
  */
-public class GUIManager {
+public class ButtonRenderer extends ElementRenderer implements UpdateUniformListener {
 
-    public World world;
-    public Vec2 gravity;
-    public AABB aabb;
-
-    public Vec2 lowerBound = new Vec2(0, 0);
-    public Vec2 upperBound = new Vec2(0, 0);
-
-    public GUIManager() {
-        gravity = new Vec2(0, -9.81f);
-        world = new World(gravity);
-        CoreRegistry.put(World.class, world);
-
-        aabb = new AABB(lowerBound, upperBound);
+    public ButtonRenderer() {
+        super();
     }
 
-    public void stepMouseInteraction() {
+    @Override
+    public ButtonRenderer initialize() {
+        shader = new Shader("basic");
+        shader.addUniform("projectionMatrix");
+        shader.addUniform("viewMatrix");
+//        shader.addUniform("text");
+        shader.addUniform("colorScheme");
 
-        lowerBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
-        upperBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
+        material = new Material(Color.BLUE);
+        return this;
+    }
 
-        aabb.set(new AABB(lowerBound, upperBound));
+    @Override
+    public void render(UIElement ui) {
+        glUseProgram(shader.getProgramID());
+        shader.updateUniformColor("colorScheme", material.getColor());
+        shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getProjectionMatrix());
+        shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
 
-        world.queryAABB(new QueryCallback() {
-            @Override
-            public boolean reportFixture(Fixture fixture) {
-                UIElement.getFromPhysicsWorld(fixture.getBody());
-                return false;
-            }
-        }, aabb);
+        ui.getElementMesh().getVertexArrayObject().render();
+
+        glUseProgram(0);
+    }
+
+    @Override
+    public void updateUniforms(Shader shader0, UIElement element) {
+
     }
 }

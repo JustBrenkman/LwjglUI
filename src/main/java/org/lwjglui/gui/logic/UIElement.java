@@ -29,16 +29,24 @@
 
 package org.lwjglui.gui.logic;
 
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.World;
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.event.listeners.MouseListener;
 import org.lwjglui.gui.renderable.ElementMesh;
 import org.lwjglui.math.Size;
 import org.lwjglui.scene.transform.Transform;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by ben on 21/05/15.
  */
-public class UIElement {
+public abstract class UIElement {
 
     /**
      * Transformation class, holds transformation matrix
@@ -51,12 +59,57 @@ public class UIElement {
     private Size size;
 
     /**
+     * Body definition for Box2D physics
+     */
+    private BodyDef bodyDef;
+    private Body body;
+
+    /**
+     * Polygon shape for collision detection
+     */
+    private PolygonShape shape;
+
+    /**
      * A map of all the element meshes, is separate from the ui logic and rendering classes
      */
     public static HashMap<UIElement, ElementMesh> elementMeshes = new HashMap<>();
 
+    /**
+     * A hasp map to help with the identification from the physics world to the rendering world
+     */
+    public static HashMap<Body, UIElement> physicsToRender = new HashMap<>();
+
+    /**
+     * An array list of all the mouse listeners for entering, hovering, clicking etc.
+     */
+    public ArrayList<MouseListener> mouseListeners = new ArrayList<>();
+
+    /**
+     * Constructor for UIElement must have extended classes call super();
+     */
     public UIElement() {
-//        setElementMesh(this, new ElementMesh());
+        transform = new Transform();
+        init();
+    }
+
+    @Deprecated
+    /**
+     * Computes and adds to physics for mouse integration
+     * Must be called after mesh has changed / created
+     */
+    public void addToPhysics() {
+        bodyDef = new BodyDef();
+        bodyDef.type = BodyType.STATIC;
+        bodyDef.position.set(transform.getTranslation().getX(), transform.getTranslation().getY());
+
+        body = CoreRegistry.get(World.class).createBody(bodyDef);
+
+        getElementMesh().computeAABB();
+        shape = new PolygonShape();
+        shape.setAsBox(getElementMesh().getAABB().getWidth(), getElementMesh().getAABB().getHeight());
+        body.createFixture(shape, 0.0f);
+
+        physicsToRender.put(body, this);
     }
 
     /**
@@ -107,4 +160,49 @@ public class UIElement {
     public void setSize(Size size) {
         this.size = size;
     }
+
+    public static UIElement getFromPhysicsWorld(Body body) {
+        return physicsToRender.get(body);
+    }
+
+    /**
+     * Adds mouse listener
+     * @param listener mouse listener
+     */
+    public void addMouseListener(MouseListener listener) {
+        mouseListeners.add(listener);
+    }
+
+    /***************************************************************************************************
+     * *                                                                                              **
+     * *                                                                                              **
+     * *                    Abstract classes for automation of Element creation                       **
+     * *                                                                                              **
+     * *                                                                                              **
+     * *************************************************************************************************
+     */
+
+    /**
+     * private method should be called by constructor
+     */
+    private void init() {
+        initializeMesh();
+        initializeListeners();
+        initializePhysics();
+    }
+
+    /**
+     * creates and compiles mesh
+     */
+    public abstract void initializeMesh();
+
+    /**
+     * adds mesh to physics
+     */
+    public abstract void initializePhysics();
+
+    /**
+     * allows for the addition of listeners
+     */
+    public abstract void initializeListeners();
 }

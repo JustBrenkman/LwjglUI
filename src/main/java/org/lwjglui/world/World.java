@@ -27,23 +27,23 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.logic;
+package org.lwjglui.world;
 
-
-import org.lwjglui.gui.renderable.ElementMesh;
-
-import java.util.HashMap;
+import org.jbox2d.common.Vec2;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 01/06/15.
  */
-public class Button extends UIElement implements IUIElemntLogic {
+public class World {
 
-    public Button() {
-        getElementMesh().addBoxToMesh(0, 0, 0.5f, 0.5f, 0, 0, 1, 1);
-        getElementMesh().addTriangleToMesh(-1, -1, 0, 0, -1, 0);
-        getElementMesh().compile();
+    Vec2 gravity;
+    org.jbox2d.dynamics.World world;
+
+    public World(Vec2 gravity) {
+        this.gravity = gravity;
+    }
+
+    public void initializeWorld() {
+        world.setGravity(gravity);
     }
 }

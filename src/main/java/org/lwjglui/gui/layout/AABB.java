@@ -27,52 +27,62 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui;
+package org.lwjglui.gui.layout;
 
-import org.jbox2d.callbacks.QueryCallback;
-import org.jbox2d.collision.AABB;
-import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
-import org.jbox2d.dynamics.World;
-import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.glfw.Mouse;
-import org.lwjglui.gui.logic.UIElement;
+import org.lwjgl.util.vector.Vector2f;
 
 /**
- * Created by ben on 06/05/15.
- * <p>
- * GUIManager
+ * Created by ben on 01/06/15.
  */
-public class GUIManager {
+public class AABB {
+    public Vector2f size;
 
-    public World world;
-    public Vec2 gravity;
-    public AABB aabb;
+    private float minX, minY, maxX, maxY;
 
-    public Vec2 lowerBound = new Vec2(0, 0);
-    public Vec2 upperBound = new Vec2(0, 0);
-
-    public GUIManager() {
-        gravity = new Vec2(0, -9.81f);
-        world = new World(gravity);
-        CoreRegistry.put(World.class, world);
-
-        aabb = new AABB(lowerBound, upperBound);
+    public AABB() {
+        minX = 0;
+        minY = 0;
+        maxX = 0;
+        maxY = 0;
     }
 
-    public void stepMouseInteraction() {
+    public float getMinX() {
+        return minX;
+    }
 
-        lowerBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
-        upperBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
+    public void setMinX(float minX) {
+        this.minX = minX;
+    }
 
-        aabb.set(new AABB(lowerBound, upperBound));
+    public float getMinY() {
+        return minY;
+    }
 
-        world.queryAABB(new QueryCallback() {
-            @Override
-            public boolean reportFixture(Fixture fixture) {
-                UIElement.getFromPhysicsWorld(fixture.getBody());
-                return false;
-            }
-        }, aabb);
+    public void setMinY(float minY) {
+        this.minY = minY;
+    }
+
+    public float getMaxX() {
+        return maxX;
+    }
+
+    public void setMaxX(float maxX) {
+        this.maxX = maxX;
+    }
+
+    public float getMaxY() {
+        return maxY;
+    }
+
+    public void setMaxY(float maxY) {
+        this.maxY = maxY;
+    }
+
+    public float getWidth() {
+        return Math.abs(maxX) + Math.abs(minX);
+    }
+
+    public float getHeight() {
+        return Math.abs(maxY) + Math.abs(minY);
     }
 }

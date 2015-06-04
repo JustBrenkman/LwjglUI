@@ -29,10 +29,14 @@
 
 package org.lwjglui.gui.renderable;
 
+import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.layout.AABB;
+import org.lwjglui.gui.logic.ElementPhysics;
 import org.lwjglui.math.Vertex;
 import org.lwjglui.math.vector.Vector2f;
 import org.lwjglui.math.vector.Vector3f;
 import org.lwjglui.render.mesh.VertexArrayObject;
+import org.slf4j.Logger;
 
 /**
  * Created by ben on 26/05/15.
@@ -40,6 +44,10 @@ import org.lwjglui.render.mesh.VertexArrayObject;
 public class ElementMesh {
 
     private VertexArrayObject vertexArrayObject;
+
+    private AABB aabb;
+
+    private ElementPhysics elementPhysics;
 
     public ElementMesh() {
         vertexArrayObject = new VertexArrayObject();
@@ -55,6 +63,30 @@ public class ElementMesh {
 
     public void compile() {
         vertexArrayObject.compile();
+    }
+
+    public void computeAABB() {
+        if (aabb == null)
+            aabb = new AABB();
+
+        for (Vertex v : vertexArrayObject.getVertexBufferObject().getVertexArray()) {
+            if ((v.getPosition().getX()) > aabb.getMaxX())
+                aabb.setMaxX(v.getPosition().getX());
+
+            if ((v.getPosition().getX()) < aabb.getMinX())
+                aabb.setMinX(v.getPosition().getX());
+
+            if ((v.getPosition().getY()) > aabb.getMaxY())
+                aabb.setMaxY(v.getPosition().getY());
+
+            if ((v.getPosition().getY()) < aabb.getMinY())
+                aabb.setMinY(v.getPosition().getY());
+        }
+
+        CoreRegistry.get(Logger.class).info("AABB max X: " + aabb.getMaxX());
+        CoreRegistry.get(Logger.class).info("AABB max Y: " + aabb.getMaxY());
+        CoreRegistry.get(Logger.class).info("AABB min X: " + aabb.getMinX());
+        CoreRegistry.get(Logger.class).info("AABB min Y: " + aabb.getMinY());
     }
 
     public VertexArrayObject getVertexArrayObject() {
@@ -121,5 +153,22 @@ public class ElementMesh {
         getVertexArrayObject().getVertexBufferObject().addIndex(i);
         getVertexArrayObject().getVertexBufferObject().addIndex(i + 1);
         getVertexArrayObject().getVertexBufferObject().addIndex(i + 2);
+    }
+
+    public void addVertexToMesh(Vertex vertex) {
+        addVertex(vertex);
+    }
+
+    public void addIndex(int i) {
+        getVertexArrayObject().getVertexBufferObject().addIndex(i);
+    }
+
+    public void addVerteciesToMesh(Vertex... vertexes) {
+        for (Vertex v : vertexes)
+            addVertex(v);
+    }
+
+    public AABB getAABB() {
+        return aabb;
     }
 }

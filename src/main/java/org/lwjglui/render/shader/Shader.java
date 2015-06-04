@@ -36,6 +36,7 @@ import org.lwjglui.math.vector.Vector2f;
 import org.lwjglui.math.vector.Vector3f;
 import org.slf4j.Logger;
 
+import java.awt.*;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,6 +109,10 @@ public class Shader {
 
     public void updateUniformVector3f(String name, Vector3f value) {
         glUniform3f(uniforms.get(name), value.getX(), value.getY(), value.getZ());
+    }
+
+    public void updateUniformColor(String name, Color color) {
+        glUniform3f(uniforms.get(name), color.getRed(), color.getGreen(), color.getBlue());
     }
 
     public void updateUniformVector2f(String name, Vector2f value) {

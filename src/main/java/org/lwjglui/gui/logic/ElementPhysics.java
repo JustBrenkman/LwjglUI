@@ -27,12 +27,58 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.elements;
+package org.lwjglui.gui.logic;
+
+import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.lwjglui.gui.renderable.ElementMesh;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 02/06/15.
  */
-public class Element {
+public class ElementPhysics {
+
+    /**
+     * Body definition for Box2D physics
+     */
+    private BodyDef bodyDef;
+    private Body body;
+
+    /**
+     * Polygon shape for collision detection
+     */
+    private PolygonShape shape;
+
+    public ElementPhysics() {
+
+    }
+
+    public void initialize(ElementMesh elementMesh) {
+
+    }
+
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
+    public void setBodyDef(BodyDef bodyDef) {
+        this.bodyDef = bodyDef;
+    }
+
+    public Body getBody() {
+        return body;
+    }
+
+    public void setBody(Body body) {
+        this.body = body;
+    }
+
+    public PolygonShape getShape() {
+        return shape;
+    }
+
+    public void setShape(PolygonShape shape) {
+        this.shape = shape;
+    }
 }
