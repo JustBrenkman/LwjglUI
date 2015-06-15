@@ -64,7 +64,7 @@ public class Button extends UIElement implements IUIElemntLogic {
 
     @Override
     public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.RED);
+        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.WHITE);
         addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.BLUE);
     }
 }
