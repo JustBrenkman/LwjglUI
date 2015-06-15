@@ -64,12 +64,14 @@ public class GUIManager {
         CoreRegistry.put(World.class, world);
 
         aabb = new AABB(lowerBound, upperBound);
+
+        world.setContactListener(Mouse.getInstance());
     }
 
     public void stepMouseInteraction() {
 
         lowerBound.set(Mouse.getMouseTransform().getTranslation().getX() - 0.001f, Mouse.getMouseYInWorld() - 0.0001f);
-        upperBound.set(Mouse.getMouseTransform().getTranslation().getX() + 0.001f, Mouse.getMouseTransform().getTranslation().getY() + 0.001f);
+        upperBound.set(Mouse.getMouseTransform().getTranslation().getX() + 0.001f, Mouse.getMouseYInWorld() + 0.001f);
 
         aabb.set(new AABB(lowerBound, upperBound));
 
@@ -77,9 +79,10 @@ public class GUIManager {
 
         world.queryAABB(fixture -> {
             currentElement = UIElement.getFromPhysicsWorld(fixture.getBody());
-            if (fixture.testPoint(new Vec2(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY()))) {
+//            if (fixture.testPoint(new Vec2(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY()))) {
+            if (currentElement != null)
                 currentElement.processMouseHit(true);
-            }
+//            }
 
 
             lastElement = currentElement;
@@ -90,6 +93,8 @@ public class GUIManager {
         if (!hasFound && lastElement != null) {
             lastElement.processMouseHit(false);
         }
+
+
 
 //        logger.info("" + hasFound);
     }

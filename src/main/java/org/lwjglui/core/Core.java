@@ -35,6 +35,7 @@ package org.lwjglui.core;
  * JGUILibrary
  */
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.Sys;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -51,6 +52,8 @@ import org.lwjglui.render.shader.ShaderManager;
 import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -71,6 +74,9 @@ public class Core {
     public Window windowR;
 
     RenderingProcess rp = new RenderingProcess();
+
+    IntBuffer width = BufferUtils.createIntBuffer(1);
+    IntBuffer height = BufferUtils.createIntBuffer(1);
 
     public void run() {
 //        System.out.println("Hello LWJGL " + Sys.getVersion() + "!");
@@ -131,6 +137,11 @@ public class Core {
             CoreRegistry.get(Camera.class).updateTransform();
 
             CoreRegistry.get(GUIManager.class).world.step(1f / 60f, 6, 2);
+
+            glfwGetWindowSize(windowR.getWindowHandle(), width, height);
+
+            windowR.getSize().setWidth(width.get(0));
+            windowR.getSize().setHeight(height.get(0));
 
             render();
             glfwSwapBuffers(windowR.getWindowHandle()); // swap the color buffers

@@ -113,13 +113,13 @@ public abstract class UIElement extends EventListenHandler {
 
         bodyDef = new BodyDef();
         bodyDef.type = BodyType.KINEMATIC;
-        bodyDef.position.set(transform.getTranslation().getX() + xCenter, transform.getTranslation().getY() + (yCenter * 2f));
+        bodyDef.position.set(transform.getTranslation().getX() + xCenter, transform.getTranslation().getY() + (yCenter));
         System.out.println(transform.getTranslation().getX() + " :" + transform.getTranslation().getY());
 
         body = CoreRegistry.get(World.class).createBody(bodyDef);
 
         shape = new PolygonShape();
-        shape.setAsBox(xCenter, 10);
+        shape.setAsBox(xCenter, yCenter);
         body.createFixture(shape, 0.0f);
 
         physicsToRender.put(body, this);
