@@ -79,7 +79,7 @@ public class Camera {
         transform.setTranslation(new Vector3f(0, 0, 0));
         orthoTransform.setTranslation(new Vector3f(0, 0, 0));
         projectionMatrix = new Matrix4f();
-        orthoGraphicMatrix = new Matrix4f();
+        orthoGraphicMatrix = Ortho(0, 0, 300, 300, 0, 100);
     }
 
     public void move(Vector3f dir, float amount) {
@@ -126,6 +126,7 @@ public class Camera {
         projectionMatrix.m32 = -((2 * near_plane * far_plane) / frustum_length);
         projectionMatrix.m33 = 0;
 
+//        orthoGraphicMatrix = Ortho(0, 0, CoreRegistry.get(Window.class).getSize().getWidth(), CoreRegistry.get(Window.class).getSize().getHeight(), -1, 100);
         orthoGraphicMatrix = Ortho(0, CoreRegistry.get(Window.class).getSize().getWidth(), CoreRegistry.get(Window.class).getSize().getHeight(), 0, 0, 100);
     }
 
@@ -151,7 +152,8 @@ public class Camera {
     }
 
     public Matrix4f getOrthoTransformation() {
-        return orthoTransform.getModelMatrix();
+        return orthoTransform.getTransformationMatrix();
+//        return orthoTransform.getModelMatrix();
     }
 
     public static Matrix4f identityMat() {

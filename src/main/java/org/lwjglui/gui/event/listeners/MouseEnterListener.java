@@ -27,44 +27,11 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.elements.logic;
-
-import org.lwjglui.gui.logic.IUIElemntLogic;
-import org.lwjglui.gui.logic.UIElement;
-import org.lwjglui.gui.renderable.ElementRenderers;
-import org.lwjglui.math.Size;
-
-import java.awt.*;
+package org.lwjglui.gui.event.listeners;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 05/06/15.
  */
-public class Button extends UIElement implements IUIElemntLogic {
-
-    public Button(float x, float y, int width, int height) {
-        this(x, y, new Size(width, height));
-    }
-
-    public Button(float x, float y, Size size) {
-        super(x, y, size);
-    }
-
-    @Override
-    public void initializeMesh() {
-        getElementMesh().addBoxToMesh(0, 0, getSize().getWidth(), getSize().getHeight(), 0, 0, 1, 1);
-        getElementMesh().compile();
-    }
-
-    @Override
-    public void initializePhysics() {
-        addToPhysics();
-    }
-
-    @Override
-    public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.WHITE);
-        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.BLUE);
-    }
+public interface MouseEnterListener {
+    void onMouseEnter();
 }

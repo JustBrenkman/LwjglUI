@@ -42,38 +42,38 @@ public interface MouseListener {
      * Event listener for mouse moving
      * @param vector2i - change to a Vector2i
      */
-    public void onMouseMove(Vector2f vector2i);
+    void onMouseMove(Vector2f vector2i);
 
     /**
      * When mouse button is clicked
      * @param button - int of button (ID)
      */
-    public void onMouseButtonClick(int button);
+    void onMouseButtonClick(int button);
 
     /**
      * When mouse button is double clicked
      * @param button - int of button (ID)
      */
-    public void onMouseDoubleClick(int button);
+    void onMouseDoubleClick(int button);
 
     /**
      * When mouse button is triple clicked
      * @param button - int of button (ID)
      */
-    public void onMouseTripleClick(int button);
+    void onMouseTripleClick(int button);
 
     /**
      * When mouse enters and hovers over element
      */
-    public void onMouseHover();
+    void onMouseHover();
 
     /**
      * When the mouse enters the region of the element
      */
-    public void onMouseEnter();
+    void onMouseEnter();
 
     /**
      * When the mouse leaves the elements region
      */
-    public void onMouseLeave();
+    void onMouseLeave();
 }

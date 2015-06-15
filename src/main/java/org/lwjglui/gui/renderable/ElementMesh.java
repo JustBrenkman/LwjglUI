@@ -69,7 +69,17 @@ public class ElementMesh {
         if (aabb == null)
             aabb = new AABB();
 
+        boolean first = true;
+
         for (Vertex v : vertexArrayObject.getVertexBufferObject().getVertexArray()) {
+
+            if (first) {
+                aabb.setMaxX(v.getPosition().getX());
+                aabb.setMinX(v.getPosition().getX());
+                aabb.setMaxY(v.getPosition().getY());
+                aabb.setMinY(v.getPosition().getY());
+            }
+
             if ((v.getPosition().getX()) > aabb.getMaxX())
                 aabb.setMaxX(v.getPosition().getX());
 
@@ -81,6 +91,8 @@ public class ElementMesh {
 
             if ((v.getPosition().getY()) < aabb.getMinY())
                 aabb.setMinY(v.getPosition().getY());
+
+            first = false;
         }
 
         CoreRegistry.get(Logger.class).info("AABB max X: " + aabb.getMaxX());

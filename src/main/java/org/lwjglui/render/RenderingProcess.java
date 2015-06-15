@@ -81,7 +81,7 @@ public class RenderingProcess {
 
         newShader.addUniform("text");
 
-        button = new Button();
+        button = new Button(100, 10, 100, 70);
         ElementRenderers.setElementRenderer(Button.class, new ButtonRenderer().initialize());
     }
 

@@ -30,11 +30,9 @@
 package org.lwjglui.gui.logic;
 
 import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
-import org.jbox2d.dynamics.World;
+import org.jbox2d.dynamics.*;
 import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.gui.event.EventListenHandler;
 import org.lwjglui.gui.event.listeners.MouseListener;
 import org.lwjglui.gui.renderable.ElementMesh;
 import org.lwjglui.math.Size;
@@ -46,7 +44,7 @@ import java.util.HashMap;
 /**
  * Created by ben on 21/05/15.
  */
-public abstract class UIElement {
+public abstract class UIElement extends EventListenHandler {
 
     /**
      * Transformation class, holds transformation matrix
@@ -55,6 +53,7 @@ public abstract class UIElement {
 
     /**
      * Size of the element
+     * TODO get rid of this to make, to reserve control to layout managers
      */
     private Size size;
 
@@ -87,8 +86,14 @@ public abstract class UIElement {
     /**
      * Constructor for UIElement must have extended classes call super();
      */
-    public UIElement() {
+    public UIElement(int x, int y) {
+        this(0, 0, new Size(x, y));
+    }
+
+    public UIElement(float x, float y, Size size) {
+        this.size = size;
         transform = new Transform();
+        transform.getTranslation().set(x, y);
         init();
     }
 
@@ -98,15 +103,23 @@ public abstract class UIElement {
      * Must be called after mesh has changed / created
      */
     public void addToPhysics() {
+
+        getElementMesh().computeAABB();
+        float xCenter = getElementMesh().getAABB().getWidth() / 2f;
+        float yCenter = getElementMesh().getAABB().getHeight() / 2f;
+
+        System.out.println(xCenter);
+        System.out.println(yCenter);
+
         bodyDef = new BodyDef();
-        bodyDef.type = BodyType.STATIC;
-        bodyDef.position.set(transform.getTranslation().getX(), transform.getTranslation().getY());
+        bodyDef.type = BodyType.KINEMATIC;
+        bodyDef.position.set(transform.getTranslation().getX() + xCenter, transform.getTranslation().getY() + (yCenter * 2f));
+        System.out.println(transform.getTranslation().getX() + " :" + transform.getTranslation().getY());
 
         body = CoreRegistry.get(World.class).createBody(bodyDef);
 
-        getElementMesh().computeAABB();
         shape = new PolygonShape();
-        shape.setAsBox(getElementMesh().getAABB().getWidth(), getElementMesh().getAABB().getHeight());
+        shape.setAsBox(xCenter, 10);
         body.createFixture(shape, 0.0f);
 
         physicsToRender.put(body, this);
@@ -205,4 +218,21 @@ public abstract class UIElement {
      * allows for the addition of listeners
      */
     public abstract void initializeListeners();
+
+    /*******************************************************************************************************
+     *
+     *******************************************************************************************************/
+
+    public void processMouseHit(boolean b) {
+        if (b) {
+            triggerOnMouseEnter(0, 0);
+        } else {
+            triggerOnMouseLeave();
+        }
+    }
+
+    public void setTranslation(float x, float y) {
+        transform.getTranslation().set(x, y);
+        body.getPosition().set(x, y);
+    }
 }

@@ -45,6 +45,7 @@ import org.lwjglui.glfw.WindowManager;
 import org.lwjglui.gui.GUIManager;
 import org.lwjglui.gui.event.UIEventManager;
 import org.lwjglui.math.Size;
+import org.lwjglui.render.Camera;
 import org.lwjglui.render.RenderingProcess;
 import org.lwjglui.render.shader.ShaderManager;
 import org.lwjglui.util.PathManager;
@@ -95,6 +96,7 @@ public class Core {
         windowR = new Window(new Size(300, 300), "LWJGL Window Class test");
         windowR.createWindow();
         CoreRegistry.put(Window.class, windowR);
+        Mouse.create();
     }
 
     private void loop() {
@@ -125,6 +127,11 @@ public class Core {
         // the window or has pressed the ESCAPE key.
         while ( glfwWindowShouldClose(windowR.getWindowHandle()) == GL_FALSE ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            CoreRegistry.get(GUIManager.class).stepMouseInteraction();
+            CoreRegistry.get(Camera.class).updateTransform();
+
+            CoreRegistry.get(GUIManager.class).world.step(1f / 60f, 6, 2);
+
             render();
             glfwSwapBuffers(windowR.getWindowHandle()); // swap the color buffers
 
@@ -153,7 +160,6 @@ public class Core {
         CoreRegistry.put(WindowManager.class, new WindowManager());
         CoreRegistry.put(UIEventManager.class, new UIEventManager());
         CoreRegistry.put(GUIManager.class, new GUIManager());
-        Mouse.create();
         CoreRegistry.get(Core.class).run();
         CoreRegistry.get(Core.class).cleanUp();
     }

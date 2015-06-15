@@ -57,6 +57,7 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
         shader = new Shader("basic");
         shader.addUniform("projectionMatrix");
         shader.addUniform("viewMatrix");
+        shader.addUniform("modelMatrix");
 //        shader.addUniform("text");
         shader.addUniform("colorScheme");
 
@@ -68,8 +69,10 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
     public void render(UIElement ui) {
         glUseProgram(shader.getProgramID());
         shader.updateUniformColor("colorScheme", material.getColor());
-        shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getProjectionMatrix());
+        shader.updateUniformMatrix4f("projectionMatrix", CoreRegistry.get(Camera.class).getOrthoGraphicMatrix());
         shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
+        ui.getTransform().updateTransformation();
+        shader.updateUniformMatrix4f("modelMatrix", ui.getTransform().getTransformationMatrix());
 
         ui.getElementMesh().getVertexArrayObject().render();
 

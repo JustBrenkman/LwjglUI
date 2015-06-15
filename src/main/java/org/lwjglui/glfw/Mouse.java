@@ -29,9 +29,12 @@
 
 package org.lwjglui.glfw;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.scene.transform.Transform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -51,13 +54,28 @@ public class Mouse {
         return mouse.getTransform();
     }
 
-    public static void create() {
-        glfwSetCursorPosCallback(CoreRegistry.get(Window.class).getWindowHandle(), new GLFWCursorPosCallback() {
+    public GLFWCursorPosCallback glfwCursorPosCallback;
+
+    private Logger logger = LoggerFactory.getLogger(Mouse.class);
+
+    private void createMouse() {
+        transform = new Transform();
+        glfwCursorPosCallback = new GLFWCursorPosCallback() {
             @Override
             public void invoke(long window, double x, double y) {
                 getMouseTransform().getTranslation().setX((float) x);
                 getMouseTransform().getTranslation().setY((float) y);
             }
-        });
+        };
+
+        glfwSetCursorPosCallback(CoreRegistry.get(Window.class).getWindowHandle(), glfwCursorPosCallback);
+    }
+
+    public static void create() {
+        mouse.createMouse();
+    }
+
+    public static float getMouseYInWorld() {
+        return CoreRegistry.get(Window.class).getSize().getHeight() - mouse.getTransform().getTranslation().getY();
     }
 }

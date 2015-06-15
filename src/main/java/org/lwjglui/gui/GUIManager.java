@@ -29,14 +29,14 @@
 
 package org.lwjglui.gui;
 
-import org.jbox2d.callbacks.QueryCallback;
 import org.jbox2d.collision.AABB;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.World;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.glfw.Mouse;
 import org.lwjglui.gui.logic.UIElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by ben on 06/05/15.
@@ -52,6 +52,12 @@ public class GUIManager {
     public Vec2 lowerBound = new Vec2(0, 0);
     public Vec2 upperBound = new Vec2(0, 0);
 
+    public UIElement lastElement, currentElement;
+
+    boolean hasFound = false;
+
+    private Logger logger = LoggerFactory.getLogger(GUIManager.class);
+
     public GUIManager() {
         gravity = new Vec2(0, -9.81f);
         world = new World(gravity);
@@ -62,17 +68,29 @@ public class GUIManager {
 
     public void stepMouseInteraction() {
 
-        lowerBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
-        upperBound.set(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY());
+        lowerBound.set(Mouse.getMouseTransform().getTranslation().getX() - 0.001f, Mouse.getMouseYInWorld() - 0.0001f);
+        upperBound.set(Mouse.getMouseTransform().getTranslation().getX() + 0.001f, Mouse.getMouseTransform().getTranslation().getY() + 0.001f);
 
         aabb.set(new AABB(lowerBound, upperBound));
 
-        world.queryAABB(new QueryCallback() {
-            @Override
-            public boolean reportFixture(Fixture fixture) {
-                UIElement.getFromPhysicsWorld(fixture.getBody());
-                return false;
+        hasFound = false;
+
+        world.queryAABB(fixture -> {
+            currentElement = UIElement.getFromPhysicsWorld(fixture.getBody());
+            if (fixture.testPoint(new Vec2(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY()))) {
+                currentElement.processMouseHit(true);
             }
+
+
+            lastElement = currentElement;
+            hasFound = true;
+            return false;
         }, aabb);
+
+        if (!hasFound && lastElement != null) {
+            lastElement.processMouseHit(false);
+        }
+
+//        logger.info("" + hasFound);
     }
 }
