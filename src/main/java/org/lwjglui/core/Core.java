@@ -49,10 +49,12 @@ import org.lwjglui.math.Size;
 import org.lwjglui.render.Camera;
 import org.lwjglui.render.RenderingProcess;
 import org.lwjglui.render.shader.ShaderManager;
+import org.lwjglui.util.ColorPalette;
 import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -71,6 +73,7 @@ public class Core {
     // The window handle
     private long window;
 
+    // TODO manage window creation and handling better
     public Window windowR;
 
     RenderingProcess rp = new RenderingProcess();
@@ -119,13 +122,18 @@ public class Core {
         logger.info("GL_VERSION: {}", GL11.glGetString(GL11.GL_VERSION));
         logger.info("SHADING_LANGUAGE VERSION: {}", GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 
+        Color backColor = new Color(0x3F51B5);
+
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(backColor.getRed() / 255.0f, backColor.getGreen() / 255.0f, backColor.getBlue() / 255.0f, backColor.getAlpha() / 255.0f);
+
 
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
+        glEnable (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         initRendering();
 
@@ -171,6 +179,7 @@ public class Core {
         CoreRegistry.put(WindowManager.class, new WindowManager());
         CoreRegistry.put(UIEventManager.class, new UIEventManager());
         CoreRegistry.put(GUIManager.class, new GUIManager());
+        ColorPalette.initialize();
         CoreRegistry.get(Core.class).run();
         CoreRegistry.get(Core.class).cleanUp();
     }

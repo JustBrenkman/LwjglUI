@@ -127,6 +127,7 @@ public class Camera {
         projectionMatrix.m33 = 0;
 
 //        orthoGraphicMatrix = Ortho(0, 0, CoreRegistry.get(Window.class).getSize().getWidth(), CoreRegistry.get(Window.class).getSize().getHeight(), -1, 100);
+//        orthoGraphicMatrix = Ortho(98, 102, 12, 8, 0, 100);
         orthoGraphicMatrix = Ortho(0, CoreRegistry.get(Window.class).getSize().getWidth(), CoreRegistry.get(Window.class).getSize().getHeight(), 0, 0, 100);
     }
 

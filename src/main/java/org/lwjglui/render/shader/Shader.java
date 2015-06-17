@@ -112,7 +112,7 @@ public class Shader {
     }
 
     public void updateUniformColor(String name, Color color) {
-        glUniform3f(uniforms.get(name), color.getRed(), color.getGreen(), color.getBlue());
+        glUniform3f(uniforms.get(name), color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f);
     }
 
     public void updateUniformVector2f(String name, Vector2f value) {

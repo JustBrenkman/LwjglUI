@@ -29,10 +29,11 @@
 
 package org.lwjglui.gui.elements.logic;
 
-import org.lwjglui.gui.logic.IUIElemntLogic;
 import org.lwjglui.gui.logic.UIElement;
 import org.lwjglui.gui.renderable.ElementRenderers;
 import org.lwjglui.math.Size;
+import org.lwjglui.math.vector.Vector2f;
+import org.lwjglui.util.ColorPalette;
 
 import java.awt.*;
 
@@ -41,7 +42,12 @@ import java.awt.*;
  * <p>
  * JGUILibrary
  */
-public class Button extends UIElement implements IUIElemntLogic {
+public class Button extends UIElement {
+
+    public Vector2f centerPoint;
+
+    private Color hover = ColorPalette.getColor(ColorPalette.ColorName.RED, ColorPalette.ColorGrade.P500);
+    private Color off = ColorPalette.getColor(ColorPalette.ColorName.RED, ColorPalette.ColorGrade.P900);
 
     public Button(float x, float y, int width, int height) {
         this(x, y, new Size(width, height));
@@ -49,6 +55,7 @@ public class Button extends UIElement implements IUIElemntLogic {
 
     public Button(float x, float y, Size size) {
         super(x, y, size);
+        centerPoint = new Vector2f(x + ((float) size.getWidth() / 2.0f), y + ((float) size.getHeight() / 2.0f));
     }
 
     @Override
@@ -64,7 +71,7 @@ public class Button extends UIElement implements IUIElemntLogic {
 
     @Override
     public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.WHITE);
-        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = Color.BLUE);
+        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = hover);
+        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = off);
     }
 }
