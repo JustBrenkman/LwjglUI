@@ -46,9 +46,6 @@ public class Button extends UIElement {
 
     public Vector2f centerPoint;
 
-    private Color hover = ColorPalette.getColor(ColorName.RED, ColorGrade.P500);
-    private Color off = ColorPalette.getColor(ColorName.RED, ColorGrade.P900);
-
     public Button(float x, float y, int width, int height) {
         this(x, y, new Size(width, height));
     }
@@ -71,7 +68,7 @@ public class Button extends UIElement {
 
     @Override
     public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = hover);
-        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = off);
+        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.BLUE, ColorGrade.P400));
+        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.BLUE, ColorGrade.P500));
     }
 }

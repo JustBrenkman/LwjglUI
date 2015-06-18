@@ -37,6 +37,9 @@ import org.lwjglui.render.Camera;
 import org.lwjglui.render.Material;
 import org.lwjglui.render.shader.Shader;
 import org.lwjglui.render.shader.UpdateUniformListener;
+import org.lwjglui.util.ColorGrade;
+import org.lwjglui.util.ColorName;
+import org.lwjglui.util.ColorPalette;
 
 import java.awt.Color;
 
@@ -92,7 +95,7 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
 //        shader.addUniform("stp");
 //        shader.addUniform("offset");
 
-        material = new Material(Color.BLUE);
+        material = new Material(ColorPalette.getColor(ColorName.BLUE, ColorGrade.P500));
         return this;
     }
 
