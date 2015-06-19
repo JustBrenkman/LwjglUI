@@ -31,6 +31,8 @@ package org.lwjglui.render;
 
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.gui.elements.logic.Button;
+import org.lwjglui.gui.elements.logic.CircleButton;
+import org.lwjglui.gui.elements.renderers.CircleButtonRenderer;
 import org.lwjglui.gui.logic.UIElement;
 import org.lwjglui.gui.elements.renderers.ButtonRenderer;
 import org.lwjglui.gui.renderable.ElementRenderers;
@@ -51,6 +53,7 @@ public class RenderingProcess {
     Camera camera;
 
     Button button;
+    CircleButton circle;
 
     public void initialize() {
 
@@ -81,8 +84,10 @@ public class RenderingProcess {
 
         newShader.addUniform("text");
 
-        button = new Button(100, 10, 100, 100);
+        button = new Button(10, 10, 20, 20);
+        circle = new CircleButton(100, 100, 50);
         ElementRenderers.setElementRenderer(Button.class, new ButtonRenderer().initialize());
+        ElementRenderers.setElementRenderer(CircleButton.class, new CircleButtonRenderer().initialize());
     }
 
     public void render() {
@@ -98,6 +103,7 @@ public class RenderingProcess {
 //        glUseProgram(0);
 
         renderElement(button);
+        renderElement(circle);
     }
 
     public void processInput() {

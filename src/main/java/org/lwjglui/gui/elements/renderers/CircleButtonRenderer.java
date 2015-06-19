@@ -30,79 +30,43 @@
 package org.lwjglui.gui.elements.renderers;
 
 import org.lwjglui.core.registry.CoreRegistry;
-import org.lwjglui.gui.elements.logic.Button;
+import org.lwjglui.gui.elements.logic.CircleButton;
 import org.lwjglui.gui.logic.UIElement;
 import org.lwjglui.gui.renderable.ElementRenderer;
 import org.lwjglui.render.Camera;
 import org.lwjglui.render.Material;
 import org.lwjglui.render.shader.Shader;
-import org.lwjglui.render.shader.UpdateUniformListener;
 import org.lwjglui.util.ColorGrade;
 import org.lwjglui.util.ColorName;
 import org.lwjglui.util.ColorPalette;
 
-import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL20.glUseProgram;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 18/06/15.
  */
-public class ButtonRenderer extends ElementRenderer implements UpdateUniformListener {
+public class CircleButtonRenderer extends ElementRenderer {
 
-//    Runnable r = new Runnable() {
-//        Scanner sc = new Scanner(System.in);
-//        @Override
-//        public void run() {
-//            while ( glfwWindowShouldClose(CoreRegistry.get(Window.class).getWindowHandle()) == GL11.GL_FALSE ) {
-//                float i, j = 0;
-//
-//                System.out.println("Offset = ");
-//                while (!sc.hasNextFloat()) ;
-//
-//                i = sc.nextFloat();
-//
-//                System.out.println("Step = ");
-//                while (!sc.hasNextFloat()) ;
-//
-//                j = sc.nextFloat();
-//
-//                k = i;
-//                l = j;
-//            }
-//        }
-//    };
-
-    float k, l;
-
-    public ButtonRenderer() {
+    public CircleButtonRenderer() {
         super();
-//        Thread t = new Thread(r);
-//        t.start();
     }
 
     @Override
-    public ButtonRenderer initialize() {
-        shader = new Shader("basic");
+    public ElementRenderer initialize() {
+        shader = new Shader("circle");
         shader.addUniform("projectionMatrix");
         shader.addUniform("viewMatrix");
         shader.addUniform("modelMatrix");
-//        shader.addUniform("text");
         shader.addUniform("colorScheme");
-//        shader.addUniform("centerPoint");
-//        shader.addUniform("xLength");
-//        shader.addUniform("yLength");
-//        shader.addUniform("radius");
+        shader.addUniform("centerPoint");
+        shader.addUniform("radius");
 
-
-        material = new Material(ColorPalette.getColor(ColorName.BLUE, ColorGrade.P500));
+        material = new Material(ColorPalette.getColor(ColorName.RED, ColorGrade.P900));
         return this;
     }
 
     @Override
     public void render(UIElement ui) {
-
-        // Best step and offset values are: Offset = 0.42, Step = 0.1;
 
         glUseProgram(shader.getProgramID());
         shader.updateUniformColor("colorScheme", material.getColor());
@@ -110,18 +74,11 @@ public class ButtonRenderer extends ElementRenderer implements UpdateUniformList
         shader.updateUniformMatrix4f("viewMatrix", CoreRegistry.get(Camera.class).getTransform().getTransformationMatrix());
         ui.getTransform().updateTransformation();
         shader.updateUniformMatrix4f("modelMatrix", ui.getTransform().getTransformationMatrix());
-//        shader.updateUniformVector2f("centerPoint", ((Button) ui).centerPoint);
-//        shader.updateUniformFloat("radius", 10);
-//        shader.updateUniformFloat("xLength", ui.getSize().getWidth() / 2.0f);
-//        shader.updateUniformFloat("yLength", ui.getSize().getHeight() / 2.0f);
+        shader.updateUniformFloat("radius", ui.getSize().getWidth() / 2);
+        shader.updateUniformVector2f("centerPoint", ((CircleButton) ui).centerPoint);
 
         ui.getElementMesh().getVertexArrayObject().render();
 
         glUseProgram(0);
-    }
-
-    @Override
-    public void updateUniforms(Shader shader0, UIElement element) {
-
     }
 }

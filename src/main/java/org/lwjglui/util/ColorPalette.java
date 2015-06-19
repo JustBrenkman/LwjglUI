@@ -40,7 +40,7 @@ public class ColorPalette {
     private static HashMap<ColorName, ColorPatch> colorNames = new HashMap<>();
 
     public static void initialize() {
-        ColorPatch red = new ColorPatch().addColor(new Color(0xFFEBEE), ColorGrade.P50).
+        final ColorPatch red = new ColorPatch().addColor(new Color(0xFFEBEE), ColorGrade.P50).
                 addColor(new Color(0xFFCDD2), ColorGrade.P100).
                 addColor(new Color(0xEF9A9A), ColorGrade.P200).
                 addColor(new Color(0xE57373), ColorGrade.P300).
@@ -57,7 +57,7 @@ public class ColorPalette {
                 addColor(new Color(0xD50000), ColorGrade.A700);
         addColorPatch(red, ColorName.RED);
 
-        ColorPatch pink = new ColorPatch().addColor(new Color(0xFCE4EC), ColorGrade.P50).
+        final ColorPatch pink = new ColorPatch().addColor(new Color(0xFCE4EC), ColorGrade.P50).
                 addColor(new Color(0xF8BBD0), ColorGrade.P100).
                 addColor(new Color(0xF48FB1), ColorGrade.P200).
                 addColor(new Color(0xF06292), ColorGrade.P300).
@@ -74,7 +74,7 @@ public class ColorPalette {
                 addColor(new Color(0xC51162), ColorGrade.A700);
         addColorPatch(pink, ColorName.PINK);
 
-        ColorPatch purple = new ColorPatch().addColor(new Color(0xF3E5F5), ColorGrade.P50).
+        final ColorPatch purple = new ColorPatch().addColor(new Color(0xF3E5F5), ColorGrade.P50).
                 addColor(new Color(0xE1BEE7), ColorGrade.P100).
                 addColor(new Color(0xCE93D8), ColorGrade.P200).
                 addColor(new Color(0xBA68C8), ColorGrade.P300).
@@ -91,7 +91,7 @@ public class ColorPalette {
                 addColor(new Color(0xAA00FF), ColorGrade.A700);
         addColorPatch(purple, ColorName.PURPLE);
 
-        ColorPatch deepPurple = new ColorPatch().addColor(new Color(0xEDE7F6), ColorGrade.P50).
+        final ColorPatch deepPurple = new ColorPatch().addColor(new Color(0xEDE7F6), ColorGrade.P50).
                 addColor(new Color(0xD1C4E9), ColorGrade.P100).
                 addColor(new Color(0xB39DDB), ColorGrade.P200).
                 addColor(new Color(0x9575CD), ColorGrade.P300).
@@ -108,7 +108,7 @@ public class ColorPalette {
                 addColor(new Color(0x6200EA), ColorGrade.A700);
         addColorPatch(deepPurple, ColorName.DEEPPURPLE);
 
-        ColorPatch indigo = new ColorPatch().addColor(new Color(0xE8EAF6), ColorGrade.P50).
+        final ColorPatch indigo = new ColorPatch().addColor(new Color(0xE8EAF6), ColorGrade.P50).
                 addColor(new Color(0xC5CAE9), ColorGrade.P100).
                 addColor(new Color(0x9FA8DA), ColorGrade.P200).
                 addColor(new Color(0x7986CB), ColorGrade.P300).
@@ -125,7 +125,7 @@ public class ColorPalette {
                 addColor(new Color(0x304FFE), ColorGrade.A700);
         addColorPatch(indigo, ColorName.INDIGO);
 
-        ColorPatch blue = new ColorPatch().addColor(new Color(0xE3F2FD), ColorGrade.P50).
+        final ColorPatch blue = new ColorPatch().addColor(new Color(0xE3F2FD), ColorGrade.P50).
                 addColor(new Color(0xBBDEFB), ColorGrade.P100).
                 addColor(new Color(0x90CAF9), ColorGrade.P200).
                 addColor(new Color(0x64B5F6), ColorGrade.P300).
@@ -142,7 +142,7 @@ public class ColorPalette {
                 addColor(new Color(0x2962FF), ColorGrade.A700);
         addColorPatch(blue, ColorName.BLUE);
 
-        ColorPatch lightBlue = new ColorPatch().addColor(new Color(0xE1F5FE), ColorGrade.P50).
+        final ColorPatch lightBlue = new ColorPatch().addColor(new Color(0xE1F5FE), ColorGrade.P50).
                 addColor(new Color(0xB3E5FC), ColorGrade.P100).
                 addColor(new Color(0x81D4FA), ColorGrade.P200).
                 addColor(new Color(0x4FC3F7), ColorGrade.P300).
@@ -159,7 +159,7 @@ public class ColorPalette {
                 addColor(new Color(0x0091EA), ColorGrade.A700);
         addColorPatch(lightBlue, ColorName.LIGHTBLUE);
 
-        ColorPatch cyan = new ColorPatch().addColor(new Color(0xE0F7FA), ColorGrade.P50).
+        final ColorPatch cyan = new ColorPatch().addColor(new Color(0xE0F7FA), ColorGrade.P50).
                 addColor(new Color(0xB2EBF2), ColorGrade.P100).
                 addColor(new Color(0x80DEEA), ColorGrade.P200).
                 addColor(new Color(0x4DD0E1), ColorGrade.P300).
@@ -176,7 +176,7 @@ public class ColorPalette {
                 addColor(new Color(0x00B8D4), ColorGrade.A700);
         addColorPatch(cyan, ColorName.CYAN);
 
-        ColorPatch teal = new ColorPatch().addColor(new Color(0xE0F2F1), ColorGrade.P50).
+        final ColorPatch teal = new ColorPatch().addColor(new Color(0xE0F2F1), ColorGrade.P50).
                 addColor(new Color(0xB2DFDB), ColorGrade.P100).
                 addColor(new Color(0x80CBC4), ColorGrade.P200).
                 addColor(new Color(0x4DB6AC), ColorGrade.P300).
@@ -193,7 +193,7 @@ public class ColorPalette {
                 addColor(new Color(0x00BFA5), ColorGrade.A700);
         addColorPatch(teal, ColorName.TEAL);
 
-        ColorPatch green = new ColorPatch().addColor(new Color(0xE8F5E9), ColorGrade.P50).
+        final ColorPatch green = new ColorPatch().addColor(new Color(0xE8F5E9), ColorGrade.P50).
                 addColor(new Color(0xC8E6C9), ColorGrade.P100).
                 addColor(new Color(0xA5D6A7), ColorGrade.P200).
                 addColor(new Color(0x81C784), ColorGrade.P300).
@@ -210,7 +210,7 @@ public class ColorPalette {
                 addColor(new Color(0x00C853), ColorGrade.A700);
         addColorPatch(green, ColorName.GREEN);
 
-        ColorPatch lightGreen = new ColorPatch().addColor(new Color(0xF1F8E9), ColorGrade.P50).
+        final ColorPatch lightGreen = new ColorPatch().addColor(new Color(0xF1F8E9), ColorGrade.P50).
                 addColor(new Color(0xDCEDC8), ColorGrade.P100).
                 addColor(new Color(0xC5E1A5), ColorGrade.P200).
                 addColor(new Color(0xAED581), ColorGrade.P300).
@@ -227,7 +227,7 @@ public class ColorPalette {
                 addColor(new Color(0x64DD17), ColorGrade.A700);
         addColorPatch(lightGreen, ColorName.LIGHTGREEN);
 
-        ColorPatch lime = new ColorPatch().addColor(new Color(0xF9FBE7), ColorGrade.P50).
+        final ColorPatch lime = new ColorPatch().addColor(new Color(0xF9FBE7), ColorGrade.P50).
                 addColor(new Color(0xF0F4C3), ColorGrade.P100).
                 addColor(new Color(0xE6EE9C), ColorGrade.P200).
                 addColor(new Color(0xDCE775), ColorGrade.P300).
@@ -244,7 +244,7 @@ public class ColorPalette {
                 addColor(new Color(0xAEEA00), ColorGrade.A700);
         addColorPatch(lime, ColorName.LIME);
 
-        ColorPatch yellow = new ColorPatch().addColor(new Color(0xFFFDE7), ColorGrade.P50).
+        final ColorPatch yellow = new ColorPatch().addColor(new Color(0xFFFDE7), ColorGrade.P50).
                 addColor(new Color(0xFFF9C4), ColorGrade.P100).
                 addColor(new Color(0xFFF59D), ColorGrade.P200).
                 addColor(new Color(0xFFF176), ColorGrade.P300).
@@ -261,7 +261,7 @@ public class ColorPalette {
                 addColor(new Color(0xFFD600), ColorGrade.A700);
         addColorPatch(yellow, ColorName.YELLOW);
 
-        ColorPatch amber = new ColorPatch().addColor(new Color(0xFFF8E1), ColorGrade.P50).
+        final ColorPatch amber = new ColorPatch().addColor(new Color(0xFFF8E1), ColorGrade.P50).
                 addColor(new Color(0xFFE082), ColorGrade.P100).
                 addColor(new Color(0xFFE082), ColorGrade.P200).
                 addColor(new Color(0xFFD54F), ColorGrade.P300).
@@ -278,7 +278,7 @@ public class ColorPalette {
                 addColor(new Color(0xFFAB00), ColorGrade.A700);
         addColorPatch(amber, ColorName.AMBER);
 
-        ColorPatch orange = new ColorPatch().addColor(new Color(0xFFF3E0), ColorGrade.P50).
+        final ColorPatch orange = new ColorPatch().addColor(new Color(0xFFF3E0), ColorGrade.P50).
                 addColor(new Color(0xFFE0B2), ColorGrade.P100).
                 addColor(new Color(0xFFCC80), ColorGrade.P200).
                 addColor(new Color(0xFFB74D), ColorGrade.P300).
@@ -295,7 +295,7 @@ public class ColorPalette {
                 addColor(new Color(0xFF6D00), ColorGrade.A700);
         addColorPatch(orange, ColorName.ORANGE);
 
-        ColorPatch deepOrange = new ColorPatch().addColor(new Color(0xFBE9E7), ColorGrade.P50).
+        final ColorPatch deepOrange = new ColorPatch().addColor(new Color(0xFBE9E7), ColorGrade.P50).
                 addColor(new Color(0xFFCCBC), ColorGrade.P100).
                 addColor(new Color(0xFFAB91), ColorGrade.P200).
                 addColor(new Color(0xFF8A65), ColorGrade.P300).
@@ -312,7 +312,7 @@ public class ColorPalette {
                 addColor(new Color(0xDD2C00), ColorGrade.A700);
         addColorPatch(deepOrange, ColorName.DEEPORANGE);
 
-        ColorPatch brow = new ColorPatch().addColor(new Color(0xEFEBE9), ColorGrade.P50).
+        final ColorPatch brow = new ColorPatch().addColor(new Color(0xEFEBE9), ColorGrade.P50).
                 addColor(new Color(0xD7CCC8), ColorGrade.P100).
                 addColor(new Color(0xBCAAA4), ColorGrade.P200).
                 addColor(new Color(0xA1887F), ColorGrade.P300).
@@ -328,7 +328,7 @@ public class ColorPalette {
                 addColor(new Color(0xFFFFFF), ColorGrade.A700);
         addColorPatch(brow, ColorName.BROWN);
 
-        ColorPatch grey = new ColorPatch().addColor(new Color(0xFAFAFA), ColorGrade.P50).
+        final ColorPatch grey = new ColorPatch().addColor(new Color(0xFAFAFA), ColorGrade.P50).
                 addColor(new Color(0xF5F5F5), ColorGrade.P100).
                 addColor(new Color(0xEEEEEE), ColorGrade.P200).
                 addColor(new Color(0xE0E0E0), ColorGrade.P300).
@@ -339,13 +339,13 @@ public class ColorPalette {
                 addColor(new Color(0x424242), ColorGrade.P800).
                 addColor(new Color(0x212121), ColorGrade.P900).
 
-                addColor(new Color(0xFFFFFF), ColorGrade.A100).
+                addColor(new Color(0x303030), ColorGrade.A100).
                 addColor(new Color(0xFFFFFF), ColorGrade.A200).
                 addColor(new Color(0xFFFFFF), ColorGrade.A400).
                 addColor(new Color(0xFFFFFF), ColorGrade.A700);
         addColorPatch(grey, ColorName.GREY);
 
-        ColorPatch blueGrey = new ColorPatch().addColor(new Color(0xECEFF1), ColorGrade.P50).
+        final ColorPatch blueGrey = new ColorPatch().addColor(new Color(0xECEFF1), ColorGrade.P50).
                 addColor(new Color(0xCFD8DC), ColorGrade.P100).
                 addColor(new Color(0xB0BEC5), ColorGrade.P200).
                 addColor(new Color(0x90A4AE), ColorGrade.P300).
@@ -362,10 +362,10 @@ public class ColorPalette {
                 addColor(new Color(0xFFFFFF), ColorGrade.A700);
         addColorPatch(blueGrey, ColorName.BLUEGREY);
 
-        ColorPatch black = new ColorPatch().addColor(new Color(0x000000), ColorGrade.P50);
+        final ColorPatch black = new ColorPatch().addColor(new Color(0x000000), ColorGrade.P50);
         addColorPatch(black, ColorName.BLACK);
 
-        ColorPatch white = new ColorPatch().addColor(new Color(0xFFFFFF), ColorGrade.P50);
+        final ColorPatch white = new ColorPatch().addColor(new Color(0xFFFFFF), ColorGrade.P50);
         addColorPatch(white, ColorName.WHITE);
     }
 

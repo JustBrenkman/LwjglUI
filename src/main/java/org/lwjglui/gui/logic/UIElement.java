@@ -32,6 +32,7 @@ package org.lwjglui.gui.logic;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.*;
 import org.lwjglui.core.registry.CoreRegistry;
+import org.lwjglui.glfw.MouseEventType;
 import org.lwjglui.gui.event.EventListenHandler;
 import org.lwjglui.gui.event.listeners.MouseListener;
 import org.lwjglui.gui.renderable.ElementMesh;
@@ -223,11 +224,19 @@ public abstract class UIElement extends EventListenHandler {
      *
      *******************************************************************************************************/
 
-    public void processMouseHit(boolean b) {
-        if (b) {
-            triggerOnMouseEnter(0, 0);
-        } else {
-            triggerOnMouseLeave();
+    public void processMouseHit(MouseEventType type) {
+        switch (type) {
+            case ENTER:
+                triggerOnMouseEnter();
+                System.out.println(toString());
+                break;
+            case LEAVE:
+                triggerOnMouseLeave();
+                break;
+            case HOVER:
+
+                break;
+            case BUTTON:
         }
     }
 

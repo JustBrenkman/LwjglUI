@@ -76,7 +76,7 @@ public class EventListenHandler {
 
     }
 
-    public void triggerOnMouseEnter(int x, int y) {
+    public void triggerOnMouseEnter() {
         for (MouseEnterListener l : mouseEnterListeners)
             l.onMouseEnter();
     }

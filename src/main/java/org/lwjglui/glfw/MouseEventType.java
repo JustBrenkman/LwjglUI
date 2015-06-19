@@ -27,48 +27,12 @@
  * either expressed or implied, of the FreeBSD Project.
  */
 
-package org.lwjglui.gui.elements.logic;
-
-import org.lwjglui.gui.logic.UIElement;
-import org.lwjglui.gui.renderable.ElementRenderers;
-import org.lwjglui.math.Size;
-import org.lwjglui.math.vector.Vector2f;
-import org.lwjglui.util.*;
-
-import java.awt.*;
+package org.lwjglui.glfw;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 18/06/15.
  */
-public class Button extends UIElement {
+public enum MouseEventType {
 
-    public Vector2f centerPoint;
-
-    public Button(float x, float y, int width, int height) {
-        this(x, y, new Size(width, height));
-    }
-
-    public Button(float x, float y, Size size) {
-        super(x, y, size);
-        centerPoint = new Vector2f(x + ((float) size.getWidth() / 2.0f), y + ((float) size.getHeight() / 2.0f));
-    }
-
-    @Override
-    public void initializeMesh() {
-        getElementMesh().addBoxToMesh(0, 0, getSize().getWidth(), getSize().getHeight(), 0, 0, 1, 1);
-        getElementMesh().compile();
-    }
-
-    @Override
-    public void initializePhysics() {
-        addToPhysics();
-    }
-
-    @Override
-    public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P800));
-        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P900));
-    }
+    ENTER, HOVER, BUTTON, LEAVE
 }

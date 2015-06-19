@@ -34,6 +34,7 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 import org.lwjglui.core.registry.CoreRegistry;
 import org.lwjglui.glfw.Mouse;
+import org.lwjglui.glfw.MouseEventType;
 import org.lwjglui.gui.logic.UIElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,14 +76,16 @@ public class GUIManager {
 
         aabb.set(new AABB(lowerBound, upperBound));
 
-        hasFound = false;
-
         world.queryAABB(fixture -> {
             currentElement = UIElement.getFromPhysicsWorld(fixture.getBody());
-//            if (fixture.testPoint(new Vec2(Mouse.getMouseTransform().getTranslation().getX(), Mouse.getMouseTransform().getTranslation().getY()))) {
-            if (currentElement != null)
-                currentElement.processMouseHit(true);
-//            }
+
+//            System.out.println(currentElement.toString());
+
+            if (currentElement != lastElement) {
+                currentElement.processMouseHit(MouseEventType.ENTER);
+            } else {
+                currentElement.processMouseHit(MouseEventType.HOVER);
+            }
 
 
             lastElement = currentElement;
@@ -90,11 +93,13 @@ public class GUIManager {
             return false;
         }, aabb);
 
-        if (!hasFound && lastElement != null) {
-            lastElement.processMouseHit(false);
+        if (lastElement != null && hasFound && currentElement != lastElement) {
+            lastElement.processMouseHit(MouseEventType.LEAVE);
+            lastElement = null;
+            hasFound = false;
         }
 
-
+        currentElement = null;
 
 //        logger.info("" + hasFound);
     }

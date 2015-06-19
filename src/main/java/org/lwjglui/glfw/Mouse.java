@@ -117,16 +117,16 @@ public class Mouse implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        Fixture f1 = contact.getFixtureA();
-        Fixture f2 = contact.getFixtureB();
-
-        if (f1.getBody() == body) {
-            UIElement.getFromPhysicsWorld(f2.getBody()).processMouseHit(true);
-        } else {
-            UIElement.getFromPhysicsWorld(f1.getBody()).processMouseHit(true);
-        }
-
-        logger.info("Yeah");
+//        Fixture f1 = contact.getFixtureA();
+//        Fixture f2 = contact.getFixtureB();
+//
+//        if (f1.getBody() == body) {
+//            UIElement.getFromPhysicsWorld(f2.getBody()).processMouseHit(true);
+//        } else {
+//            UIElement.getFromPhysicsWorld(f1.getBody()).processMouseHit(true);
+//        }
+//
+//        logger.info("Yeah");
     }
 
     @Override

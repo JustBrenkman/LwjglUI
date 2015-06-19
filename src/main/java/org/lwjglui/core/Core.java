@@ -49,6 +49,8 @@ import org.lwjglui.math.Size;
 import org.lwjglui.render.Camera;
 import org.lwjglui.render.RenderingProcess;
 import org.lwjglui.render.shader.ShaderManager;
+import org.lwjglui.util.ColorGrade;
+import org.lwjglui.util.ColorName;
 import org.lwjglui.util.ColorPalette;
 import org.lwjglui.util.PathManager;
 import org.slf4j.Logger;
@@ -122,7 +124,7 @@ public class Core {
         logger.info("GL_VERSION: {}", GL11.glGetString(GL11.GL_VERSION));
         logger.info("SHADING_LANGUAGE VERSION: {}", GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 
-        Color backColor = new Color(0x3F51B5);
+        Color backColor = ColorPalette.getColor(ColorName.GREY, ColorGrade.A100);
 
         // Set the clear color
         glClearColor(backColor.getRed() / 255.0f, backColor.getGreen() / 255.0f, backColor.getBlue() / 255.0f, backColor.getAlpha() / 255.0f);

@@ -33,26 +33,21 @@ import org.lwjglui.gui.logic.UIElement;
 import org.lwjglui.gui.renderable.ElementRenderers;
 import org.lwjglui.math.Size;
 import org.lwjglui.math.vector.Vector2f;
-import org.lwjglui.util.*;
-
-import java.awt.*;
+import org.lwjglui.util.ColorGrade;
+import org.lwjglui.util.ColorName;
+import org.lwjglui.util.ColorPalette;
 
 /**
- * Created by ben on 20/05/15.
- * <p>
- * JGUILibrary
+ * Created by ben on 18/06/15.
  */
-public class Button extends UIElement {
+public class CircleButton extends UIElement {
 
     public Vector2f centerPoint;
 
-    public Button(float x, float y, int width, int height) {
-        this(x, y, new Size(width, height));
-    }
 
-    public Button(float x, float y, Size size) {
-        super(x, y, size);
-        centerPoint = new Vector2f(x + ((float) size.getWidth() / 2.0f), y + ((float) size.getHeight() / 2.0f));
+    public CircleButton(float x, float y, final int radius) {
+        super(x, y, new Size(radius * 2, radius * 2));
+        centerPoint = new Vector2f(x + (radius), y + (radius));
     }
 
     @Override
@@ -68,7 +63,7 @@ public class Button extends UIElement {
 
     @Override
     public void initializeListeners() {
-        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P800));
-        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(Button.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P900));
+        addMouseEnterListener(() -> ElementRenderers.getElementRenderer(CircleButton.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P800));
+        addMouseLeaveListener(() -> ElementRenderers.getElementRenderer(CircleButton.class).material.color = ColorPalette.getColor(ColorName.GREEN, ColorGrade.P900));
     }
 }
