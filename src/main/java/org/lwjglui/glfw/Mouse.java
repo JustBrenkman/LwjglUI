@@ -84,7 +84,6 @@ public class Mouse implements ContactListener {
             public void invoke(long window, double x, double y) {
                 getMouseTransform().getTranslation().setX((float) x);
                 getMouseTransform().getTranslation().setY((float) y);
-//                logger.info("Mouse X: " + x + ", Mouse Y: " + y);
             }
         };
 

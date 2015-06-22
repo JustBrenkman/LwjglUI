@@ -63,10 +63,9 @@ public class RenderingProcess {
 
         camera.init();
         camera.getTransform().updateTransformation();
-//        camera.move(Axis.toVector(Axis.Z_AXIS), 1);
         camera.getTransform().updateCameraTransfomationWithQuaternion();
 
-        vertexArrayObject = MeshBuilder.createBox(1, 1);
+//        vertexArrayObject = MeshBuilder.createBox(1, 1);
 //        vertexArrayObject = new VertexArrayObject();
 //        vertexArrayObject.getVertexBufferObject().getVertexArray()
 //                .addVertex(new Vertex(new Vector3f(0, 0, -1), new Vector2f(0, 0)))
@@ -77,14 +76,7 @@ public class RenderingProcess {
 //        vertexArrayObject.getVertexBufferObject().addIndex(0).addIndex(1).addIndex(2).addIndex(0).addIndex(2).addIndex(3);
 //        vertexArrayObject.compile();
 
-        newShader = new Shader("hello");
-        newShader.addUniform("projectionMatrix");
-        newShader.addUniform("viewMatrix");
-        newTexture = new Texture("bricks.png");
-
-        newShader.addUniform("text");
-
-        button = new Button(10, 10, 20, 20);
+        button = new Button(50, 50, 200, 100);
         circle = new CircleButton(100, 100, 50);
         ElementRenderers.setElementRenderer(Button.class, new ButtonRenderer().initialize());
         ElementRenderers.setElementRenderer(CircleButton.class, new CircleButtonRenderer().initialize());
@@ -92,15 +84,6 @@ public class RenderingProcess {
 
     public void render() {
         processInput();
-//        glUseProgram(newShader.getProgramID());
-//        glActiveTexture(GL_TEXTURE0);
-//        glBindTexture(GL_TEXTURE_2D, newTexture.getTextureID());
-//        newShader.updateUniformInt("text", 0);
-//        newShader.updateUniformMatrix4f("projectionMatrix", camera.getProjectionMatrix());
-//        newShader.updateUniformMatrix4f("viewMatrix", camera.getTransform().getTransformationMatrix());
-//        vertexArrayObject.render();
-//        glBindTexture(GL_TEXTURE_2D, 0);
-//        glUseProgram(0);
 
         renderElement(button);
         renderElement(circle);

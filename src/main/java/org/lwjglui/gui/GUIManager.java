@@ -79,8 +79,6 @@ public class GUIManager {
         world.queryAABB(fixture -> {
             currentElement = UIElement.getFromPhysicsWorld(fixture.getBody());
 
-//            System.out.println(currentElement.toString());
-
             if (currentElement != lastElement) {
                 currentElement.processMouseHit(MouseEventType.ENTER);
             } else {
@@ -100,7 +98,5 @@ public class GUIManager {
         }
 
         currentElement = null;
-
-//        logger.info("" + hasFound);
     }
 }

@@ -228,7 +228,6 @@ public abstract class UIElement extends EventListenHandler {
         switch (type) {
             case ENTER:
                 triggerOnMouseEnter();
-                System.out.println(toString());
                 break;
             case LEAVE:
                 triggerOnMouseLeave();
